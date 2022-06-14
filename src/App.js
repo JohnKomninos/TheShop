@@ -2,11 +2,10 @@ import './App.css';
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 import DisplayItem from './components/DisplayItem'
-import Index from './components/Index'
 
 const App = () => {
 
-  const [inventory, setInventory] = useState()
+  const [inventory, setInventory] = useState([])
   const [cart, setCart] = useState([])
 
   const getInventory = () => {
@@ -28,13 +27,11 @@ const App = () => {
   return (
     <>
       <h1>Welcome to The Shop!</h1>
-      {inventory ? <Index inventory={inventory} /> : null}
       <div className='inventory-container'>
         {inventory?.map((inventoryItem) => {
           return (
             <div className='inventory-item' key={inventoryItem.id}>
               <DisplayItem inventoryItem={inventoryItem} handleAddToCart={handleAddToCart} />
-              <Cart/>
             </div>
           )
         })}
