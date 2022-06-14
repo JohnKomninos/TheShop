@@ -3,12 +3,21 @@ import {useState, useEffect} from 'react'
 import axios from 'axios'
 import DisplayItem from './components/DisplayItem'
 import Index from './components/Index'
+
 import Cart from './components/cart'
+
+import Header from './components/Header'
+
+
 
 const App = () => {
 
   const [inventory, setInventory] = useState()
+
   const [cart, setCart] = useState()
+
+  const [page, setPage] = useState('home')
+
 
   const getInventory = () => {
     axios.get('https://the-shop-back-end.herokuapp.com/api/inventory').then((response) => {
@@ -29,16 +38,32 @@ const App = () => {
     })
   }
 
+  const viewHome = () => {
+    setPage('home')
+  }
+
+  const viewShop = () => {
+    setPage('shop')
+  }
+
+  const viewCart = () => {
+    setPage('cart')
+  }
+
   useEffect(() => {
     getInventory()
     getCart()
   }, [])
 
   return (
+
     <>
-      <h1>Welcome to The Shop!</h1>
-      {inventory ? <Index inventory={inventory} /> : null}
-      <div className='inventory-container'>
+      <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} />
+      {page == 'home' ?
+        inventory ? <Index inventory={inventory} /> : null
+      : null}
+      {page == 'shop' ?
+        <div className='inventory-container'>
         {inventory?.map((inventoryItem) => {
           return (
             <div className='inventory-item' key={inventoryItem.id}>
@@ -46,8 +71,16 @@ const App = () => {
             </div>
           )
         })}
-            <Cart cart={cart}/>
+
+            
       </div>
+
+        </div>
+      : null}
+      {page == 'cart' ?
+        <Cart cart={cart}/>
+      : null}
+
     </>
   )
 }
