@@ -2,6 +2,7 @@ import './App.css';
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 import DisplayItem from './components/DisplayItem'
+import Index from './components/Index'
 
 const App = () => {
 
@@ -35,6 +36,9 @@ const App = () => {
             </div>
           )
         })}
+      </div>
+      <div className = 'index'>
+      <Index/>
       </div>
     </>
   )
