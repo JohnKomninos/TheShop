@@ -5,12 +5,17 @@ import DisplayItem from './components/DisplayItem'
 
 const App = () => {
 
-  const [inventory, setInventory] = useState()
+  const [inventory, setInventory] = useState([])
+  const [cart, setCart] = useState([])
 
   const getInventory = () => {
     axios.get('https://the-shop-back-end.herokuapp.com/api/inventory').then((response) => {
       setInventory(response.data)
     })
+  }
+
+  const handleAddToCart = (addedInventoryItem) => {
+    setCart([...cart, addedInventoryItem])
   }
 
   useEffect(() => {
@@ -20,9 +25,15 @@ const App = () => {
   return (
     <>
       <h1>Welcome to The Shop!</h1>
-      {inventory?.map((inventoryItem) => {
-        return <DisplayItem inventoryItem={inventoryItem} />
-      })}
+      <div className='inventory-container'>
+        {inventory?.map((inventoryItem) => {
+          return (
+            <div className='inventory-item' key={inventoryItem.id}>
+              <DisplayItem inventoryItem={inventoryItem} handleAddToCart={handleAddToCart} />
+            </div>
+          )
+        })}
+      </div>
     </>
   )
 }
