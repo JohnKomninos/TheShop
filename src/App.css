@@ -24,3 +24,8 @@
 .index p {
     margin-top: -20px;
 }
+
+.index button {
+    display: block;
+    margin: 10px;
+}
