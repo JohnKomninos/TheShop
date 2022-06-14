@@ -1,7 +1,8 @@
+import axios from 'axios'
 import React, {useState} from 'react'
 
 const DisplayItem = (props) => {
-    const [cartItem, setCartItem] = useState({...props.inventoryItem})
+    const [cartItem, setCartItem] = useState({...props.inventoryItem, quantity: 1})
 
     return (
         <>

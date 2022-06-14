@@ -15,7 +15,9 @@ const App = () => {
   }
 
   const handleAddToCart = (addedInventoryItem) => {
-    setCart([...cart, addedInventoryItem])
+    axios.post('https://the-shop-back-end.herokuapp.com/api/cart', addedInventoryItem).then((response) => {
+        setCart(response.data)
+    })
   }
 
   useEffect(() => {
