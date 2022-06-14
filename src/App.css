@@ -20,3 +20,7 @@
     max-width: 10em;
     max-height: 10em;
 }
+
+.index p {
+    margin-top: -20px;
+}
