@@ -1,3 +1,19 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: aqua;
+}
+
+header img {
+  width: 3em;
+  height: 3em;
+}
+
+header img, h2:hover {
+  cursor: pointer;
+}
+
 .inventory-container {
   display: flex;
   justify-content: center;
