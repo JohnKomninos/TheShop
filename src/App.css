@@ -31,3 +31,26 @@ header img, h2:hover {
   max-width: 10em;
   max-height: 10em;
 }
+
+.index img {
+    max-width: 10em;
+    max-height: 10em;
+}
+
+.index p {
+    margin-top: -20px;
+}
+
+.index button {
+    display: block;
+    margin: 10px;
+}
+
+.inline {
+    display: inline-block;
+}
+
+.block {
+    display: block;
+    margin: 0 auto;
+}

@@ -5,6 +5,7 @@ import DisplayItem from './components/DisplayItem'
 import Index from './components/Index'
 import Header from './components/Header'
 
+
 const App = () => {
 
   const [inventory, setInventory] = useState()
@@ -40,6 +41,7 @@ const App = () => {
   }, [])
 
   return (
+
     <>
       <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} />
       {page == 'home' ?
