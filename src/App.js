@@ -32,6 +32,7 @@ const App = () => {
           return (
             <div className='inventory-item' key={inventoryItem.id}>
               <DisplayItem inventoryItem={inventoryItem} handleAddToCart={handleAddToCart} />
+              <Cart/>
             </div>
           )
         })}
