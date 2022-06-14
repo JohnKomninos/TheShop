@@ -29,3 +29,11 @@
     display: block;
     margin: 10px;
 }
+
+.inline {
+    display: inline-block;
+}
+
+.block {
+    display: block;
+}
