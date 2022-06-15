@@ -19,6 +19,7 @@ const App = () => {
 
   const [totalPrice, setTotalPrice] = useState(0)
 
+
   const getInventory = () => {
     axios.get('https://the-shop-back-end.herokuapp.com/api/inventory').then((response) => {
       setInventory(response.data)
@@ -34,6 +35,15 @@ const App = () => {
   const handleAddToCart = (addedInventoryItem) => {
     axios.post('https://the-shop-back-end.herokuapp.com/api/cart', addedInventoryItem).then((response) => {
         setCart([...cart, response.data])
+    })
+  }
+
+  const updateCart = (editCart) =>{
+    axios.put('https://the-shop-back-end.herokuapp.com/api/cart/' + editCart.id, editCart)
+    .then((response)=>{
+      setCart(cart.map((item)=>{
+        return item.id !== response.data.id ? item : response.data
+      }))
     })
   }
 
@@ -53,9 +63,27 @@ const App = () => {
   const calculateTotal = () =>{
     let total = 0
     cart.map((item)=>{
-      total+=item.price
-      console.log(total)
+      let quantityPrice = item.price * item.quantity
+      total+=quantityPrice
       setTotalPrice(total)
+    })
+  }
+
+  const handleDelete = (deletedItem) =>{
+      axios.delete('https://the-shop-back-end.herokuapp.com/api/cart/' + deletedItem.id)
+      .then((response)=>{
+        setCart(cart.filter(cartItem => cartItem.id !== deletedItem.id))
+        calculateTotal()
+      })
+  }
+
+  const deleteCart = () =>{
+    setTotalPrice(0)
+    cart.map((deleteItem)=>{
+      axios.delete('https://the-shop-back-end.herokuapp.com/api/cart/' + deleteItem.id)
+      .then((response)=>{
+        getCart()
+      })
     })
   }
 
@@ -83,10 +111,22 @@ const App = () => {
       </div>
       : null}
       {page == 'cart' ?
-        <Cart cart={cart} totalPrice={totalPrice}/>
+        <div>
+        <button onClick={deleteCart}>Empty the cart</button>
+        {cart?.map((cartItem) => {
+          return (
+            <div key={cartItem.id}>
+              <Cart cartItem={cartItem} totalPrice={totalPrice} updateCart={updateCart} calculateTotal={calculateTotal}/>
+              <button onClick={()=>{handleDelete(cartItem)}}>X</button>
+            </div>
+          )
+        })} ${totalPrice}
+      </div>
       : null}
     </>
   )
 }
+
+
 
 export default App

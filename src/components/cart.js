@@ -1,23 +1,35 @@
 import React, {useState} from 'react'
 
 const Cart = (props) => {
+  const [cartItem, setCartItem] = useState({...props.cartItem})
 
-  const [index, setIndex] = useState(0)
+  const handleChange = (event) =>{
+    setCartItem({...cartItem, [event.target.name]: event.target.value})
+  }
+
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    event.currentTarget.reset();
+    props.updateCart(cartItem)
+    props.calculateTotal()
+  }
+
+    let quantityPrice = cartItem.price * cartItem.quantity
 
   return(
     <>
-      {props.cart?.map((cartItem)=>{
-        return(
-          <div className="cart-div" key={cartItem.id}>
-          <h3>{cartItem.image}</h3>
-          Title: <h3>{cartItem.title}</h3>
-          Description: <h3>{cartItem.description}</h3>
-          Price: <h3>${cartItem.price}</h3>
-          Quantiy: <h3>{cartItem.quantity}</h3>
-          </div>
-        )
-      })}
-      <h3>Total Price: $ {props.totalPrice}</h3>
+      <div className="cart-div" key={cartItem.id}>
+        <form onSubmit={handleSubmit}>
+        <h3>{cartItem.image}</h3>
+        Title: <h3>{cartItem.title}</h3>
+        Description: <h3>{cartItem.description}</h3>
+        Price: <h3>${quantityPrice}</h3>
+        <label>Quantity:</label>
+        <input type="number" name='quantity' value={cartItem.quantity} onChange={handleChange} min="1" max="100"/>
+        <input type="submit"/>
+        </form>
+      </div>
     </>
   )
 }
