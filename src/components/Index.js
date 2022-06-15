@@ -15,7 +15,7 @@ const Index = (props) => {
     return (
         <>
             {imageIndex - 1 < 0 ? null : <button onClick={prevImage}>Prev</button>}
-            {inventory ? <img src={inventory[imageIndex].image} /> : null}
+            {inventory ? <img className = 'carousel' src={inventory[imageIndex].image} /> : null}
             {inventory ? <p>{inventory[imageIndex].title}</p> : null}
             {imageIndex + 1 > inventory.length - 1 ? null : <button onClick={nextImage}>Next</button>}
 
