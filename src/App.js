@@ -11,6 +11,7 @@ const App = () => {
   const [inventory, setInventory] = useState()
   const [cart, setCart] = useState([])
   const [page, setPage] = useState('home')
+  const [query, setQuery] = useState('')
 
   const getInventory = () => {
     axios.get('https://the-shop-back-end.herokuapp.com/api/inventory').then((response) => {
@@ -48,8 +49,16 @@ const App = () => {
         inventory ? <Index inventory={inventory} /> : null
       : null}
       {page == 'shop' ?
+      <>
+      <input className='search' placeholder = 'Search by Item' onChange = {event => setQuery(event.target.value)}/>
         <div className='inventory-container'>
-        {inventory?.map((inventoryItem) => {
+        {inventory?.filter(inventoryItem => {
+            if (query === '') {
+                return inventoryItem
+            } else if (inventoryItem.title.toLowerCase().includes(query.toLowerCase())){
+                return inventoryItem
+            }
+        }).map((inventoryItem) => {
           return (
             <div className='inventory-item' key={inventoryItem.id}>
               <DisplayItem inventoryItem={inventoryItem} handleAddToCart={handleAddToCart} />
@@ -57,6 +66,7 @@ const App = () => {
           )
         })}
         </div>
+        </>
       : null}
       {page == 'cart' ?
         <>PUT CART COMPONENT HERE</>
