@@ -17,6 +17,7 @@ const App = () => {
 
   const [page, setPage] = useState('home')
 
+  const [totalPrice, setTotalPrice] = useState(0)
 
   const getInventory = () => {
     axios.get('https://the-shop-back-end.herokuapp.com/api/inventory').then((response) => {
@@ -33,7 +34,6 @@ const App = () => {
   const handleAddToCart = (addedInventoryItem) => {
     axios.post('https://the-shop-back-end.herokuapp.com/api/cart', addedInventoryItem).then((response) => {
         setCart([...cart, response.data])
-        console.log(response.data)
     })
   }
 
@@ -47,6 +47,16 @@ const App = () => {
 
   const viewCart = () => {
     setPage('cart')
+    calculateTotal()
+  }
+
+  const calculateTotal = () =>{
+    let total = 0
+    cart.map((item)=>{
+      total+=item.price
+      console.log(total)
+      setTotalPrice(total)
+    })
   }
 
   useEffect(() => {
@@ -73,7 +83,7 @@ const App = () => {
       </div>
       : null}
       {page == 'cart' ?
-        <Cart cart={cart}/>
+        <Cart cart={cart} totalPrice={totalPrice}/>
       : null}
     </>
   )

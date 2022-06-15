@@ -8,15 +8,16 @@ const Cart = (props) => {
     <>
       {props.cart?.map((cartItem)=>{
         return(
-          <div className="cart-div">
-          <h1>{cartItem.image}</h1>
-          <h1>{cartItem.title}</h1>
-          <h1>{cartItem.description}</h1>
-          <h1>{cartItem.price}</h1>
-          <h1>{cartItem.quantity}</h1>
+          <div className="cart-div" key={cartItem.id}>
+          <h3>{cartItem.image}</h3>
+          Title: <h3>{cartItem.title}</h3>
+          Description: <h3>{cartItem.description}</h3>
+          Price: <h3>${cartItem.price}</h3>
+          Quantiy: <h3>{cartItem.quantity}</h3>
           </div>
         )
       })}
+      <h3>Total Price: $ {props.totalPrice}</h3>
     </>
   )
 }
