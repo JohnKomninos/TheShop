@@ -1,3 +1,19 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: aqua;
+}
+
+header img {
+  width: 3em;
+  height: 3em;
+}
+
+header img, h2:hover {
+  cursor: pointer;
+}
+
 .inventory-container {
   display: flex;
   justify-content: center;
@@ -14,4 +30,31 @@
 .inventory-item img {
   max-width: 10em;
   max-height: 10em;
+}
+
+.index img {
+    max-width: 10em;
+    max-height: 10em;
+}
+
+.index p {
+    margin-top: -20px;
+}
+
+.index button {
+    display: block;
+    margin: 10px;
+}
+
+.inline {
+    display: inline-block;
+}
+
+.block {
+    display: block;
+    margin: 0 auto;
+}
+
+.cart-div{
+  border:2px solid gold;
 }
