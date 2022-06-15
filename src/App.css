@@ -1,6 +1,6 @@
 header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   background-color: aqua;
 }
@@ -56,5 +56,6 @@ header img, h2:hover {
 }
 
 .search {
-    margin: 85px;
+    display: block;
+    margin: 1em auto;
 }
