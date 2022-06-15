@@ -73,7 +73,6 @@ const App = () => {
       axios.delete('https://the-shop-back-end.herokuapp.com/api/cart/' + deletedItem.id)
       .then((response)=>{
         setCart(cart.filter(cartItem => cartItem.id !== deletedItem.id))
-        calculateTotal()
       })
   }
 
@@ -116,8 +115,7 @@ const App = () => {
         {cart?.map((cartItem) => {
           return (
             <div key={cartItem.id}>
-              <Cart cartItem={cartItem} totalPrice={totalPrice} updateCart={updateCart} calculateTotal={calculateTotal}/>
-              <button onClick={()=>{handleDelete(cartItem)}}>X</button>
+              <Cart cartItem={cartItem} totalPrice={totalPrice} updateCart={updateCart} calculateTotal={calculateTotal} handleDelete={handleDelete}/>
             </div>
           )
         })} ${totalPrice}

@@ -12,7 +12,6 @@ const Cart = (props) => {
     event.preventDefault()
     event.currentTarget.reset();
     props.updateCart(cartItem)
-    props.calculateTotal()
   }
 
     let quantityPrice = cartItem.price * cartItem.quantity
@@ -29,6 +28,7 @@ const Cart = (props) => {
         <input type="number" name='quantity' value={cartItem.quantity} onChange={handleChange} min="1" max="100"/>
         <input type="submit"/>
         </form>
+        <button onMouseDown={props.calculateTotal} onClick={()=>{props.handleDelete(cartItem)}}>X</button>
       </div>
     </>
   )
