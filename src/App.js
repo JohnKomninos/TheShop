@@ -33,7 +33,7 @@ const App = () => {
       })
       .then((response) => {
         setCurrentUser(response.data.email)
-        viewCart()
+        viewShop()
       })
   }
 
@@ -127,7 +127,8 @@ const App = () => {
 
   const viewCart = () => {
     setPage('cart')
-    calculateTotal()
+    getCart()
+    
   }
 
   const viewLogin = () => {
