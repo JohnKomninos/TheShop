@@ -1,6 +1,7 @@
 import './App.css';
 import {useState, useEffect} from 'react'
 import axios from 'axios'
+import RefineNumber from 'react-refine-number'
 import DisplayItem from './components/DisplayItem'
 import Index from './components/Index'
 import Cart from './components/cart'
@@ -14,10 +15,11 @@ const App = () => {
   const [cart, setCart] = useState()
   const [page, setPage] = useState('home')
   const [query, setQuery] = useState('')
-  const [order, setOrder] = useState()
   const [currentUser, setCurrentUser] = useState()
   const [loginError, setLoginError] = useState(false)
   const [totalPrice, setTotalPrice] = useState(0)
+
+  const totalPriceHumanize = <RefineNumber number = {totalPrice}/>
 
 
   // USER AUTHORIZATION FUNCTION FOR VERIFYING EXISTING ACCOUNT
@@ -30,6 +32,9 @@ const App = () => {
       })
       .then((response) => {
         setCurrentUser(response.data.email)
+        getCart()
+        calculateTotal()
+        viewShop()
       })
   }
 
@@ -56,14 +61,14 @@ const App = () => {
     } else {
       viewLogin()
     }
-    
+
   }
 
 
   // CART PAGE FUNCTIONS
   const getCart = () => {
     axios.get('https://the-shop-back-end.herokuapp.com/api/cart').then((response) => {
-      setCart(response.data)
+      setCart(response.data.filter(cartItem => cartItem.email === currentUser))
     })
   }
 
@@ -89,6 +94,7 @@ const App = () => {
     axios.delete('https://the-shop-back-end.herokuapp.com/api/cart/' + deletedItem.id)
     .then((response) => {
       setCart(cart.filter(cartItem => cartItem.id !== deletedItem.id))
+      setTotalPrice(totalPrice - deletedItem.price)
     })
   }
 
@@ -102,6 +108,16 @@ const App = () => {
     })
   }
 
+  //SORT FUNCTIONS
+
+  const priceDesc = () => {
+      setInventory([...inventory]?.sort((a, b) => b.price - a.price))
+  }
+
+  const priceAsc = () => {
+      setInventory([...inventory]?.sort((a, b) => a.price - b.price))
+  }
+
   // PAGE CHANGE / VIEW FUNCTIONS
   const viewHome = () => {
     setPage('home')
@@ -113,15 +129,8 @@ const App = () => {
 
   const viewCart = () => {
     setPage('cart')
-    calculateTotal()
-  }
-  
-  const priceDesc = () => {
-      setOrder(inventory?.sort((a, b) => b.price - a.price))
-  }
+    getCart()
 
-  const priceAsc = () => {
-      setOrder(inventory?.sort((a, b) => a.price - b.price))
   }
 
   const viewLogin = () => {
@@ -140,9 +149,9 @@ const App = () => {
 
   return (
     <>
-      <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} />
+      <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} cart={cart}/>
       {page === 'login' ?
-        <Login getUserAccount={getUserAccount} viewCart={viewCart} viewCreate={viewCreate} />
+        <Login getUserAccount={getUserAccount} viewCreate={viewCreate} />
       : null}
       {page === 'create' ?
         <CreateAccount handleCreateNewUser={handleCreateNewUser} viewLogin={viewLogin} />
@@ -169,7 +178,7 @@ const App = () => {
         }).map((inventoryItem) => {
           return (
             <div className='inventory-item' key={inventoryItem.id}>
-              <DisplayItem inventoryItem={inventoryItem} handleAddToCart={handleAddToCart} />
+              <DisplayItem inventoryItem={inventoryItem} handleAddToCart={handleAddToCart} currentUser={currentUser} />
             </div>
           )
         })}
@@ -179,20 +188,22 @@ const App = () => {
       {page === 'cart' ?
         currentUser ?
           <div>
-            <button onClick={deleteCart}>Empty the cart</button>
             {cart?.map((cartItem) => {
               return (
                 <div key={cartItem.id}>
                   <Cart cartItem={cartItem} totalPrice={totalPrice} updateCart={updateCart} calculateTotal={calculateTotal} handleDelete={handleDelete}/>
                 </div>
               )
-            })} ${totalPrice}
+          })}
+          <button onClick={deleteCart}>Empty the cart</button>
+          <div>
+          <h2>Total:</h2>
+          <h1 className = 'inline'>$</h1>
+          <h1 className = 'inline'>{totalPriceHumanize}</h1>
+          <h1 className = 'inline'>.00</h1>
           </div>
-        : 
-          <>
-            <h3>Please log in to view cart!</h3>
-            <button onClick={viewLogin}>Log In</button>
-          </>
+          </div>
+        : viewLogin()
       : null}
     </>
   )

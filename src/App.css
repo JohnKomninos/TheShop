@@ -16,6 +16,8 @@ header img {
 header img:hover, h2:hover {
   cursor: pointer;
   background-color: antiquewhite;
+  border-radius: 10px;
+  padding: 2px;
 }
 
 
@@ -23,6 +25,10 @@ header img:hover, h2:hover {
 .index-img {
   max-width: 30em;
   max-height: 30em;
+}
+
+.indexCarousel button {
+    
 }
 
 
@@ -38,11 +44,13 @@ header img:hover, h2:hover {
   background-color: lightgray;
   width: 25%;
   text-align: center;
+  border-radius: 20px;
 }
 
 .inventory-item img {
   max-width: 10em;
   max-height: 10em;
+  padding: 1em;
 }
 
 .carousel {
@@ -76,5 +84,20 @@ header img:hover, h2:hover {
 
 /* CART PAGE STYLING */
 .cart-div{
-  border:2px solid gold;
+  display: inline-flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 1em;
+}
+
+.cart-div img {
+    max-width: 200px;
+}
+
+.cart-card {
+    background-color: lightgray;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    min-width: 300px;
 }
