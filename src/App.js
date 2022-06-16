@@ -171,7 +171,7 @@ const App = () => {
         }).map((inventoryItem) => {
           return (
             <div className='inventory-item' key={inventoryItem.id}>
-              <DisplayItem inventoryItem={inventoryItem} handleAddToCart={handleAddToCart} />
+              <DisplayItem inventoryItem={inventoryItem} handleAddToCart={handleAddToCart} currentUser={currentUser} />
             </div>
           )
         })}
@@ -190,11 +190,7 @@ const App = () => {
               )
             })} ${totalPrice}
           </div>
-        :
-          <>
-            <h3>Please log in to view cart!</h3>
-            <button onClick={viewLogin}>Log In</button>
-          </>
+        : viewLogin()
       : null}
     </>
   )
