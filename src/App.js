@@ -12,7 +12,7 @@ const App = () => {
   const [cart, setCart] = useState([])
   const [page, setPage] = useState('home')
   const [query, setQuery] = useState('')
-  const [price, setPrice] = useState('')
+  const [order, setOrder] = useState()
 
   const getInventory = () => {
     axios.get('https://the-shop-back-end.herokuapp.com/api/inventory').then((response) => {
@@ -39,12 +39,12 @@ const App = () => {
   }
 
 
-  const priceUp = () => {
-      setPrice(inventory?.sort((a, b) => b.price - a.price))
+  const priceDesc = () => {
+      setOrder(inventory?.sort((a, b) => b.price - a.price))
   }
 
-  const priceDown = () => {
-      setPrice(inventory?.sort((a, b) => a.price - b.price))
+  const priceAsc = () => {
+      setOrder(inventory?.sort((a, b) => a.price - b.price))
   }
 
   useEffect(() => {
@@ -63,8 +63,8 @@ const App = () => {
       <input className='search' placeholder = 'Search by item name' onChange = {event => setQuery(event.target.value)}/>
       <details>
       <summary>Filters</summary>
-      <button onClick = {priceUp}>Price High to Low</button>
-      <button onClick = {priceDown}>Price Low to High</button>
+      <button onClick = {priceDesc}>Price High to Low</button>
+      <button onClick = {priceAsc}>Price Low to High</button>
       </details>
         <div className='inventory-container'>
         {inventory?.filter(inventoryItem => {
