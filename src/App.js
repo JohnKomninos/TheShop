@@ -15,7 +15,6 @@ const App = () => {
   const [cart, setCart] = useState()
   const [page, setPage] = useState('home')
   const [query, setQuery] = useState('')
-  const [order, setOrder] = useState()
   const [currentUser, setCurrentUser] = useState()
   const [loginError, setLoginError] = useState(false)
   const [totalPrice, setTotalPrice] = useState(0)
@@ -110,11 +109,11 @@ const App = () => {
   //SORT FUNCTIONS
 
   const priceDesc = () => {
-      setOrder(inventory?.sort((a, b) => b.price - a.price))
+      setInventory([...inventory]?.sort((a, b) => b.price - a.price))
   }
 
   const priceAsc = () => {
-      setOrder(inventory?.sort((a, b) => a.price - b.price))
+      setInventory([...inventory]?.sort((a, b) => a.price - b.price))
   }
 
   // PAGE CHANGE / VIEW FUNCTIONS
