@@ -72,9 +72,13 @@ header img:hover, h2:hover {
 .search {
     display: block;
     margin: 1em auto;
-
+}
 
 /* CART PAGE STYLING */
 .cart-div{
   border:2px solid gold;
+}
+
+.cart-div img {
+    max-width: 200px;
 }
