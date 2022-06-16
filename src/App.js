@@ -33,12 +33,9 @@ const App = () => {
       })
       .then((response) => {
         setCurrentUser(response.data.email)
-<<<<<<< HEAD
         getCart()
         calculateTotal()
-=======
         viewShop()
->>>>>>> f58f54f951f575188530324d559a8251802b0b6d
       })
   }
 
@@ -134,7 +131,7 @@ const App = () => {
   const viewCart = () => {
     setPage('cart')
     getCart()
-    
+
   }
 
   const viewLogin = () => {
