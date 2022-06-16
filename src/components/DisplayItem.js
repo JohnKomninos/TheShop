@@ -1,9 +1,8 @@
-import axios from 'axios'
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import RefineNumber from 'react-refine-number'
 
 const DisplayItem = (props) => {
-    const [cartItem, setCartItem] = useState({...props.inventoryItem, quantity: 1})
+    const [cartItem] = useState({...props.inventoryItem, quantity: 1})
 
     let number = <RefineNumber number = {props.inventoryItem.price}/>
 
