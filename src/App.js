@@ -1,6 +1,7 @@
 import './App.css';
 import {useState, useEffect} from 'react'
 import axios from 'axios'
+import RefineNumber from 'react-refine-number'
 import DisplayItem from './components/DisplayItem'
 import Index from './components/Index'
 import Cart from './components/cart'
@@ -18,6 +19,8 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState()
   const [loginError, setLoginError] = useState(false)
   const [totalPrice, setTotalPrice] = useState(0)
+
+  const totalPriceHumanize = <RefineNumber number = {totalPrice}/>
 
 
   // USER AUTHORIZATION FUNCTION FOR VERIFYING EXISTING ACCOUNT
@@ -56,14 +59,14 @@ const App = () => {
     } else {
       viewLogin()
     }
-    
+
   }
 
 
   // CART PAGE FUNCTIONS
   const getCart = () => {
     axios.get('https://the-shop-back-end.herokuapp.com/api/cart').then((response) => {
-      setCart(response.data)
+      setCart(response.data.filter(cartItem => cartItem.email === currentUser))
     })
   }
 
@@ -142,7 +145,7 @@ const App = () => {
 
   return (
     <>
-      <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} />
+      <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} cart={cart}/>
       {page === 'login' ?
         <Login getUserAccount={getUserAccount} viewCart={viewCart} viewCreate={viewCreate} />
       : null}
@@ -188,7 +191,13 @@ const App = () => {
                   <Cart cartItem={cartItem} totalPrice={totalPrice} updateCart={updateCart} calculateTotal={calculateTotal} handleDelete={handleDelete}/>
                 </div>
               )
-            })} ${totalPrice}
+          })}
+          <div>
+          <h2>Total:</h2>
+          <h1 className = 'inline'>$</h1>
+          <h1 className = 'inline'>{totalPriceHumanize}</h1>
+          <h1 className = 'inline'>.00</h1>
+          </div>
           </div>
         : viewLogin()
       : null}
