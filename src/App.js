@@ -33,6 +33,7 @@ const App = () => {
       })
       .then((response) => {
         setCurrentUser(response.data.email)
+        viewCart()
       })
   }
 
@@ -147,7 +148,7 @@ const App = () => {
     <>
       <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} cart={cart}/>
       {page === 'login' ?
-        <Login getUserAccount={getUserAccount} viewCart={viewCart} viewCreate={viewCreate} />
+        <Login getUserAccount={getUserAccount} viewCreate={viewCreate} />
       : null}
       {page === 'create' ?
         <CreateAccount handleCreateNewUser={handleCreateNewUser} viewLogin={viewLogin} />
