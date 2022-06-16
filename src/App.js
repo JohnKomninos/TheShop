@@ -128,7 +128,7 @@ const App = () => {
   const viewCart = () => {
     setPage('cart')
     getCart()
-    
+
   }
 
   const viewLogin = () => {
