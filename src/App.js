@@ -163,11 +163,11 @@ const App = () => {
       {page == 'shop' ?
       <>
       <input className='search' placeholder = 'Search by item name' onChange = {event => setQuery(event.target.value)}/>
-      <details>
-      <summary>Filters</summary>
-      <button onClick = {priceDesc}>Price High to Low</button>
-      <button onClick = {priceAsc}>Price Low to High</button>
-      </details>
+      <div className = 'filterContainer'>
+          <button className = 'block' onClick = {priceDesc}>Price High to Low</button>
+          <button className = 'block' onClick = {priceAsc}>Price Low to High</button>
+          <button className = 'block' onClick = {getInventory}>Reset Filters</button>
+      </div>
         <div className='inventory-container'>
         {inventory?.filter(inventoryItem => {
             if (query === '') {

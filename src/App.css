@@ -3,9 +3,9 @@ header {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: rgb(123, 152, 215);
-  padding-left: 2em;
-  padding-right: 2em;
+  background-color: #42a0ff;
+  padding: 0.5em;
+  color: white;
 }
 
 header img {
@@ -20,6 +20,11 @@ header img:hover, h2:hover {
   padding: 2px;
 }
 
+.logo {
+    width: 200px;
+    max-height: 2.5em;
+}
+
 
 /* INDEX PAGE STYLING */
 .index-img {
@@ -27,15 +32,12 @@ header img:hover, h2:hover {
   max-height: 30em;
 }
 
-.indexCarousel button {
-    
-}
-
 
 /* SHOP PAGE STYLING */
 .inventory-container {
-  display: flex;
-  justify-content: center;
+  display: inline-flex;
+  justify-content: flex-end;
+  margin-right: 5em;
   flex-wrap: wrap;
   gap: 1em;
 }
@@ -100,4 +102,10 @@ header img:hover, h2:hover {
     padding: 20px;
     text-align: center;
     min-width: 300px;
+}
+
+/* MISC STYLING */
+
+.filterContainer {
+    display: inline-block;
 }
