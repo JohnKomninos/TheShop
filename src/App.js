@@ -49,9 +49,14 @@ const App = () => {
   }
 
   const handleAddToCart = (addedInventoryItem) => {
-    axios.post('https://the-shop-back-end.herokuapp.com/api/cart', addedInventoryItem).then((response) => {
+    if (currentUser) {
+      axios.post('https://the-shop-back-end.herokuapp.com/api/cart', addedInventoryItem).then((response) => {
         setCart([...cart, response.data])
-    })
+      })
+    } else {
+      viewLogin()
+    }
+    
   }
 
 
