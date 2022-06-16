@@ -33,8 +33,12 @@ const App = () => {
       })
       .then((response) => {
         setCurrentUser(response.data.email)
+<<<<<<< HEAD
         getCart()
         calculateTotal()
+=======
+        viewShop()
+>>>>>>> f58f54f951f575188530324d559a8251802b0b6d
       })
   }
 
@@ -129,7 +133,8 @@ const App = () => {
 
   const viewCart = () => {
     setPage('cart')
-    calculateTotal()
+    getCart()
+    
   }
 
   const viewLogin = () => {
@@ -150,7 +155,7 @@ const App = () => {
     <>
       <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} cart={cart}/>
       {page === 'login' ?
-        <Login getUserAccount={getUserAccount} viewCart={viewCart} viewCreate={viewCreate} />
+        <Login getUserAccount={getUserAccount} viewCreate={viewCreate} />
       : null}
       {page === 'create' ?
         <CreateAccount handleCreateNewUser={handleCreateNewUser} viewLogin={viewLogin} />
