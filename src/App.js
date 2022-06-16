@@ -46,6 +46,7 @@ const App = () => {
     })
   }
 
+
   // SHOP INVENTORY PAGE FUNCTIONS
   const getInventory = () => {
     axios.get('https://the-shop-back-end.herokuapp.com/api/inventory').then((response) => {
@@ -86,7 +87,7 @@ const App = () => {
     cart.map((item) => {
       let quantityPrice = item.price * item.quantity
       total+=quantityPrice
-      setTotalPrice(total)
+      return setTotalPrice(total)
     })
   }
 
@@ -109,85 +110,96 @@ const App = () => {
   }
 
   //SORT FUNCTIONS
-
   const priceDesc = () => {
-      setInventory([...inventory]?.sort((a, b) => b.price - a.price))
+    setInventory([...inventory]?.sort((a, b) => b.price - a.price))
   }
 
   const priceAsc = () => {
-      setInventory([...inventory]?.sort((a, b) => a.price - b.price))
+    setInventory([...inventory]?.sort((a, b) => a.price - b.price))
   }
 
   // PAGE CHANGE / VIEW FUNCTIONS
   const viewHome = () => {
     setPage('home')
+    setLoginError(false)
   }
 
   const viewShop = () => {
     setPage('shop')
+    setLoginError(false)
   }
 
   const userCart = () =>{
     getCart()
+    setLoginError(false)
   }
 
   const viewCart = () => {
     setPage('cart')
+    setLoginError(false)
     calculateTotal()
   }
 
   const viewLogin = () => {
     setPage('login')
+    setLoginError(false)
   }
 
   const viewCreate = () => {
     setPage('create')
+    setLoginError(false)
   }
+
 
   useEffect(() => {
     getInventory()
-    getCart()
   }, [])
 
 
   return (
     <>
       <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} cart={cart} userCart={userCart}/>
+      
       {page === 'login' ?
         <Login getUserAccount={getUserAccount} viewCreate={viewCreate} />
       : null}
+      
       {page === 'create' ?
         <CreateAccount handleCreateNewUser={handleCreateNewUser} viewLogin={viewLogin} />
       : null}
+      
       {loginError ? <h3>Wrong email or password!</h3> : null}
+      
       {page === 'home' ?
         inventory ? <Index inventory={inventory} /> : null
       : null}
-      {page == 'shop' ?
-      <>
-      <input className='search' placeholder = 'Search by item name' onChange = {event => setQuery(event.target.value)}/>
-      <div className = 'filterContainer'>
-          <button className = 'block' onClick = {priceDesc}>Price High to Low</button>
-          <button className = 'block' onClick = {priceAsc}>Price Low to High</button>
-          <button className = 'block' onClick = {getInventory}>Reset Filters</button>
-      </div>
-        <div className='inventory-container'>
-        {inventory?.filter(inventoryItem => {
-            if (query === '') {
+      
+      {page === 'shop' ?
+        <>
+          <input className='search' placeholder = 'Search by item name' onChange = {event => setQuery(event.target.value)}/>
+          <div className = 'filterContainer'>
+            <button className = 'block' onClick = {priceDesc}>Price High to Low</button>
+            <button className = 'block' onClick = {priceAsc}>Price Low to High</button>
+            <button className = 'block' onClick = {getInventory}>Reset Filters</button>
+          </div>
+          <div className='inventory-container'>
+            {inventory?.filter(inventoryItem => {
+              if (query === '') {
                 return inventoryItem
-            } else if (inventoryItem.title.toLowerCase().includes(query.toLowerCase())){
+              } else if (inventoryItem.title.toLowerCase().includes(query.toLowerCase())){
                 return inventoryItem
-            }
-        }).map((inventoryItem) => {
-          return (
-            <div className='inventory-item' key={inventoryItem.id}>
-              <DisplayItem inventoryItem={inventoryItem} handleAddToCart={handleAddToCart} currentUser={currentUser} />
-            </div>
-          )
-        })}
-        </div>
+              }
+            }).map((inventoryItem) => {
+              return (
+                <div className='inventory-item' key={inventoryItem.id}>
+                  <DisplayItem inventoryItem={inventoryItem} handleAddToCart={handleAddToCart} currentUser={currentUser} />
+                </div>
+              )
+            })}
+          </div>
         </>
       : null}
+
       {page === 'cart' ?
         currentUser ?
           <div>
@@ -197,14 +209,14 @@ const App = () => {
                   <Cart cartItem={cartItem} totalPrice={totalPrice} updateCart={updateCart} calculateTotal={calculateTotal} handleDelete={handleDelete}/>
                 </div>
               )
-          })}
-          <button onClick={deleteCart}>Empty the cart</button>
-          <div>
-          <h2>Total:</h2>
-          <h1 className = 'inline'>$</h1>
-          <h1 className = 'inline'>{totalPriceHumanize}</h1>
-          <h1 className = 'inline'>.00</h1>
-          </div>
+            })}
+            <button onClick={deleteCart}>Empty the cart</button>
+            <div>
+              <h2>Total:</h2>
+              <h1 className = 'inline'>$</h1>
+              <h1 className = 'inline'>{totalPriceHumanize}</h1>
+              <h1 className = 'inline'>.00</h1>
+            </div>
           </div>
         : viewLogin()
       : null}
