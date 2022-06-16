@@ -1,20 +1,35 @@
 import React, {useState} from 'react'
 
 const Cart = (props) => {
+  const [cartItem, setCartItem] = useState({...props.cartItem})
+
+  const handleChange = (event) =>{
+    setCartItem({...cartItem, [event.target.name]: event.target.value})
+  }
+
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    event.currentTarget.reset();
+    props.updateCart(cartItem)
+  }
+
+    let quantityPrice = cartItem.price * cartItem.quantity
 
   return(
     <>
-      {props.cart?.map((cartItem)=>{
-        return(
-          <div>
-          <h1>{cartItem.image}</h1>
-          <h1>{cartItem.title}</h1>
-          <h1>{cartItem.description}</h1>
-          <h1>{cartItem.price}</h1>
-          <h1>{cartItem.quantity}</h1>
-          </div>
-        )
-      })}
+      <div className="cart-div" key={cartItem.id}>
+        <form onSubmit={handleSubmit}>
+        <h3>{cartItem.image}</h3>
+        Title: <h3>{cartItem.title}</h3>
+        Description: <h3>{cartItem.description}</h3>
+        Price: <h3>${quantityPrice}</h3>
+        <label>Quantity:</label>
+        <input type="number" name='quantity' value={cartItem.quantity} onChange={handleChange} min="1" max="100"/>
+        <input type="submit"/>
+        </form>
+        <button onMouseDown={props.calculateTotal} onClick={()=>{props.handleDelete(cartItem)}}>X</button>
+      </div>
     </>
   )
 }
