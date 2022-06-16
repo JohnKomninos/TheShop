@@ -1,8 +1,11 @@
+/* HEADER STYLING */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: aqua;
+  background-color: rgb(123, 152, 215);
+  padding-left: 2em;
+  padding-right: 2em;
 }
 
 header img {
@@ -10,10 +13,20 @@ header img {
   height: 3em;
 }
 
-header img, h2:hover {
+header img:hover, h2:hover {
   cursor: pointer;
+  background-color: antiquewhite;
 }
 
+
+/* INDEX PAGE STYLING */
+.index-img {
+  max-width: 30em;
+  max-height: 30em;
+}
+
+
+/* SHOP PAGE STYLING */
 .inventory-container {
   display: flex;
   justify-content: center;
@@ -55,6 +68,8 @@ header img, h2:hover {
     margin: 0 auto;
 }
 
+
+/* CART PAGE STYLING */
 .cart-div{
   border:2px solid gold;
 }

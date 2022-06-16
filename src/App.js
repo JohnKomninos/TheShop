@@ -17,17 +17,6 @@ const App = () => {
   const [loginError, setLoginError] = useState(false)
   const [totalPrice, setTotalPrice] = useState(0)
 
-  const getInventory = () => {
-    axios.get('https://the-shop-back-end.herokuapp.com/api/inventory').then((response) => {
-      setInventory(response.data)
-    })
-  }
-
-  const getCart = () => {
-    axios.get('https://the-shop-back-end.herokuapp.com/api/cart').then((response) => {
-      setCart(response.data)
-    })
-  }
 
   // USER AUTHORIZATION FUNCTION FOR VERIFYING EXISTING ACCOUNT
   const getUserAccount = (userAccount) => {
@@ -43,7 +32,7 @@ const App = () => {
   }
 
 
-  // USER AUTHORIZATION FUNCTIONS FOR CREATING NEW ACCOUNT
+  // USER AUTHORIZATION FUNCTION FOR CREATING NEW ACCOUNT
   const handleCreateNewUser = (newUserAccount) => {
     axios.post('https://the-shop-back-end.herokuapp.com/api/useraccount', newUserAccount).then((response) => {
         setPage('login')
@@ -51,9 +40,24 @@ const App = () => {
   }
 
 
+  // SHOP INVENTORY PAGE FUNCTIONS
+  const getInventory = () => {
+    axios.get('https://the-shop-back-end.herokuapp.com/api/inventory').then((response) => {
+      setInventory(response.data)
+    })
+  }
+
   const handleAddToCart = (addedInventoryItem) => {
     axios.post('https://the-shop-back-end.herokuapp.com/api/cart', addedInventoryItem).then((response) => {
         setCart([...cart, response.data])
+    })
+  }
+
+
+  // CART PAGE FUNCTIONS
+  const getCart = () => {
+    axios.get('https://the-shop-back-end.herokuapp.com/api/cart').then((response) => {
+      setCart(response.data)
     })
   }
 
@@ -66,6 +70,33 @@ const App = () => {
     })
   }
 
+  const calculateTotal = () =>{
+    let total = 0
+    cart.map((item) => {
+      let quantityPrice = item.price * item.quantity
+      total+=quantityPrice
+      setTotalPrice(total)
+    })
+  }
+
+  const handleDelete = (deletedItem) => {
+    axios.delete('https://the-shop-back-end.herokuapp.com/api/cart/' + deletedItem.id)
+    .then((response) => {
+      setCart(cart.filter(cartItem => cartItem.id !== deletedItem.id))
+    })
+  }
+
+  const deleteCart = () => {
+    setTotalPrice(0)
+    cart.map((deleteItem) => {
+      axios.delete('https://the-shop-back-end.herokuapp.com/api/cart/' + deleteItem.id)
+      .then((response) => {
+        getCart()
+      })
+    })
+  }
+
+  // PAGE CHANGE / VIEW FUNCTIONS
   const viewHome = () => {
     setPage('home')
   }
@@ -79,32 +110,6 @@ const App = () => {
     calculateTotal()
   }
 
-  const calculateTotal = () =>{
-    let total = 0
-    cart.map((item)=>{
-      let quantityPrice = item.price * item.quantity
-      total+=quantityPrice
-      setTotalPrice(total)
-    })
-  }
-
-  const handleDelete = (deletedItem) =>{
-      axios.delete('https://the-shop-back-end.herokuapp.com/api/cart/' + deletedItem.id)
-      .then((response)=>{
-        setCart(cart.filter(cartItem => cartItem.id !== deletedItem.id))
-      })
-  }
-
-  const deleteCart = () =>{
-    setTotalPrice(0)
-    cart.map((deleteItem)=>{
-      axios.delete('https://the-shop-back-end.herokuapp.com/api/cart/' + deleteItem.id)
-      .then((response)=>{
-        getCart()
-      })
-    })
-  }
-
   const viewLogin = () => {
     setPage('login')
   }
@@ -113,13 +118,14 @@ const App = () => {
     setPage('create')
   }
 
+
   useEffect(() => {
     getInventory()
     getCart()
   }, [])
 
-  return (
 
+  return (
     <>
       <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} />
       {page === 'login' ?
@@ -164,7 +170,5 @@ const App = () => {
     </>
   )
 }
-
-
 
 export default App
