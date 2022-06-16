@@ -4,7 +4,6 @@ header {
   justify-content: space-around;
   align-items: center;
   background-color: #42a0ff;
-  padding: 0.5em;
   color: white;
 }
 
@@ -13,12 +12,14 @@ header img {
   height: 3em;
 }
 
-header img:hover, h2:hover {
+header img:hover, header img:hover {
   cursor: pointer;
-  background-color: antiquewhite;
+  background-color: #42a0ff;
   border-radius: 10px;
-  padding: 2px;
+  border-style: solid;
+  border-color: white;
 }
+
 
 .logo {
     width: 200px;
@@ -43,10 +44,11 @@ header img:hover, h2:hover {
 }
 
 .inventory-item{
-  background-color: lightgray;
+  background-color: #364C61;
   width: 25%;
   text-align: center;
   border-radius: 20px;
+  color: #81B3E6;
 }
 
 .inventory-item img {
@@ -82,6 +84,13 @@ header img:hover, h2:hover {
 .search {
     display: block;
     margin: 1em auto;
+}
+
+.imageContainer {
+    display: inline-flex;
+    width: 150px;
+    height: 150px;
+    justify-content: center;
 }
 
 /* CART PAGE STYLING */

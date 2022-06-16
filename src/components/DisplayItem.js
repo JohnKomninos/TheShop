@@ -8,7 +8,9 @@ const DisplayItem = (props) => {
 
     return (
         <>
+            <div class= 'imageContainer'>
             <img src={props.inventoryItem.image} alt={props.inventoryItem.title} />
+            </div>
             <h2>{props.inventoryItem.title}</h2>
             <p>{props.inventoryItem.description}</p>
             <h3 className = 'inline'>$</h3>
