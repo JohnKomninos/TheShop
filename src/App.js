@@ -49,9 +49,14 @@ const App = () => {
   }
 
   const handleAddToCart = (addedInventoryItem) => {
-    axios.post('https://the-shop-back-end.herokuapp.com/api/cart', addedInventoryItem).then((response) => {
+    if (currentUser) {
+      axios.post('https://the-shop-back-end.herokuapp.com/api/cart', addedInventoryItem).then((response) => {
         setCart([...cart, response.data])
-    })
+      })
+    } else {
+      viewLogin()
+    }
+    
   }
 
 
@@ -97,6 +102,16 @@ const App = () => {
     })
   }
 
+  //SORT FUNCTIONS
+
+  const priceDesc = () => {
+      setOrder(inventory?.sort((a, b) => b.price - a.price))
+  }
+
+  const priceAsc = () => {
+      setOrder(inventory?.sort((a, b) => a.price - b.price))
+  }
+
   // PAGE CHANGE / VIEW FUNCTIONS
   const viewHome = () => {
     setPage('home')
@@ -109,14 +124,6 @@ const App = () => {
   const viewCart = () => {
     setPage('cart')
     calculateTotal()
-  }
-  
-  const priceDesc = () => {
-      setOrder(inventory?.sort((a, b) => b.price - a.price))
-  }
-
-  const priceAsc = () => {
-      setOrder(inventory?.sort((a, b) => a.price - b.price))
   }
 
   const viewLogin = () => {
@@ -183,7 +190,7 @@ const App = () => {
               )
             })} ${totalPrice}
           </div>
-        : 
+        :
           <>
             <h3>Please log in to view cart!</h3>
             <button onClick={viewLogin}>Log In</button>
