@@ -12,7 +12,7 @@ header img {
   height: 3em;
 }
 
-header img:hover, header img:hover {
+header img:hover, header h2:hover {
   cursor: pointer;
   background-color: #42a0ff;
   border-radius: 10px;
