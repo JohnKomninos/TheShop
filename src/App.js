@@ -4,21 +4,18 @@ import axios from 'axios'
 import DisplayItem from './components/DisplayItem'
 import Index from './components/Index'
 import Cart from './components/cart'
-
 import Header from './components/Header'
-
-
+import Login from './components/Login';
+import CreateAccount from './components/CreateAccount';
 
 const App = () => {
 
   const [inventory, setInventory] = useState()
-
   const [cart, setCart] = useState()
-
   const [page, setPage] = useState('home')
-
+  const [currentUser, setCurrentUser] = useState()
+  const [loginError, setLoginError] = useState(false)
   const [totalPrice, setTotalPrice] = useState(0)
-
 
   const getInventory = () => {
     axios.get('https://the-shop-back-end.herokuapp.com/api/inventory').then((response) => {
@@ -31,6 +28,28 @@ const App = () => {
       setCart(response.data)
     })
   }
+
+  // USER AUTHORIZATION FUNCTION FOR VERIFYING EXISTING ACCOUNT
+  const getUserAccount = (userAccount) => {
+    axios.put('https://the-shop-back-end.herokuapp.com/api/useraccount/login', userAccount)
+      .catch((error) => {
+        if (error) {
+          setLoginError(true)
+        }
+      })
+      .then((response) => {
+        setCurrentUser(response.data.email)
+      })
+  }
+
+
+  // USER AUTHORIZATION FUNCTIONS FOR CREATING NEW ACCOUNT
+  const handleCreateNewUser = (newUserAccount) => {
+    axios.post('https://the-shop-back-end.herokuapp.com/api/useraccount', newUserAccount).then((response) => {
+        setPage('login')
+    })
+  }
+
 
   const handleAddToCart = (addedInventoryItem) => {
     axios.post('https://the-shop-back-end.herokuapp.com/api/cart', addedInventoryItem).then((response) => {
@@ -86,6 +105,14 @@ const App = () => {
     })
   }
 
+  const viewLogin = () => {
+    setPage('login')
+  }
+
+  const viewCreate = () => {
+    setPage('create')
+  }
+
   useEffect(() => {
     getInventory()
     getCart()
@@ -95,31 +122,44 @@ const App = () => {
 
     <>
       <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} />
-      {page == 'home' ?
+      {page === 'login' ?
+        <Login getUserAccount={getUserAccount} viewCart={viewCart} viewCreate={viewCreate} />
+      : null}
+      {page === 'create' ?
+        <CreateAccount handleCreateNewUser={handleCreateNewUser} viewLogin={viewLogin} />
+      : null}
+      {loginError ? <h3>Wrong email or password!</h3> : null}
+      {page === 'home' ?
         inventory ? <Index inventory={inventory} /> : null
       : null}
-      {page == 'shop' ?
+      {page === 'shop' ?
         <div className='inventory-container'>
-        {inventory?.map((inventoryItem) => {
-          return (
-            <div className='inventory-item' key={inventoryItem.id}>
-              <DisplayItem inventoryItem={inventoryItem} handleAddToCart={handleAddToCart} />
-            </div>
-          )
-        })}
-      </div>
+          {inventory?.map((inventoryItem) => {
+            return (
+              <div className='inventory-item' key={inventoryItem.id}>
+                <DisplayItem inventoryItem={inventoryItem} handleAddToCart={handleAddToCart} />
+              </div>
+            )
+          })}
+        </div>
       : null}
-      {page == 'cart' ?
-        <div>
-        <button onClick={deleteCart}>Empty the cart</button>
-        {cart?.map((cartItem) => {
-          return (
-            <div key={cartItem.id}>
-              <Cart cartItem={cartItem} totalPrice={totalPrice} updateCart={updateCart} calculateTotal={calculateTotal} handleDelete={handleDelete}/>
-            </div>
-          )
-        })} ${totalPrice}
-      </div>
+      {page === 'cart' ?
+        currentUser ?
+          <div>
+            <button onClick={deleteCart}>Empty the cart</button>
+            {cart?.map((cartItem) => {
+              return (
+                <div key={cartItem.id}>
+                  <Cart cartItem={cartItem} totalPrice={totalPrice} updateCart={updateCart} calculateTotal={calculateTotal} handleDelete={handleDelete}/>
+                </div>
+              )
+            })} ${totalPrice}
+          </div>
+        : 
+          <>
+            <h3>Please log in to view cart!</h3>
+            <button onClick={viewLogin}>Log In</button>
+          </>
       : null}
     </>
   )
