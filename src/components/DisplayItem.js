@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import RefineNumber from 'react-refine-number'
 
 const DisplayItem = (props) => {
-    const [cartItem] = useState({...props.inventoryItem, quantity: 1})
+    const [cartItem] = useState({...props.inventoryItem, quantity: 1, email: props.currentUser})
 
     let number = <RefineNumber number = {props.inventoryItem.price}/>
 
