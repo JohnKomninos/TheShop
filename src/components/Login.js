@@ -11,7 +11,6 @@ const Login = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault()
         props.getUserAccount(userAccount)
-        props.viewCart()
     }
 
     return (
