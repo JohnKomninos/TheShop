@@ -33,6 +33,8 @@ const App = () => {
       })
       .then((response) => {
         setCurrentUser(response.data.email)
+        getCart()
+        calculateTotal()
         viewShop()
       })
   }
@@ -93,6 +95,7 @@ const App = () => {
     axios.delete('https://the-shop-back-end.herokuapp.com/api/cart/' + deletedItem.id)
     .then((response) => {
       setCart(cart.filter(cartItem => cartItem.id !== deletedItem.id))
+      setTotalPrice(totalPrice - deletedItem.price)
     })
   }
 
@@ -128,7 +131,7 @@ const App = () => {
   const viewCart = () => {
     setPage('cart')
     getCart()
-    
+
   }
 
   const viewLogin = () => {
@@ -186,7 +189,6 @@ const App = () => {
       {page === 'cart' ?
         currentUser ?
           <div>
-            <button onClick={deleteCart}>Empty the cart</button>
             {cart?.map((cartItem) => {
               return (
                 <div key={cartItem.id}>
@@ -194,6 +196,7 @@ const App = () => {
                 </div>
               )
           })}
+          <button onClick={deleteCart}>Empty the cart</button>
           <div>
           <h2>Total:</h2>
           <h1 className = 'inline'>$</h1>
