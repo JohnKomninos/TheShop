@@ -20,7 +20,7 @@ const Cart = (props) => {
     <>
       <div className="cart-div" key={cartItem.id}>
         <form onSubmit={handleSubmit}>
-        <h3>{cartItem.image}</h3>
+        <img src = {cartItem.image}/>
         Title: <h3>{cartItem.title}</h3>
         Description: <h3>{cartItem.description}</h3>
         Price: <h3>${quantityPrice}</h3>

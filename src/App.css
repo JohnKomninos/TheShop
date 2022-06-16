@@ -78,3 +78,7 @@ header img:hover, h2:hover {
 .cart-div{
   border:2px solid gold;
 }
+
+.cart-div img {
+    max-width: 200px;
+}
