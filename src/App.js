@@ -66,7 +66,7 @@ const App = () => {
   // CART PAGE FUNCTIONS
   const getCart = () => {
     axios.get('https://the-shop-back-end.herokuapp.com/api/cart').then((response) => {
-      setCart(response.data)
+      setCart(response.data.filter(cartItem => cartItem.email === currentUser))
     })
   }
 
