@@ -2,7 +2,7 @@ import React from 'react'
 
 const Header = (props) => {
     return (
-        <header>
+        <header className = 'sticky'>
             <h1>Welcome to <i>The Shop</i>!</h1>
             <h2 onClick={props.viewHome}>Home</h2>
             <h2 onClick={props.viewShop}>Shop</h2>

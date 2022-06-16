@@ -1,7 +1,7 @@
 /* HEADER STYLING */
 header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   background-color: rgb(123, 152, 215);
   padding-left: 2em;
@@ -45,9 +45,9 @@ header img:hover, h2:hover {
   max-height: 10em;
 }
 
-.index img {
-    max-width: 10em;
-    max-height: 10em;
+.carousel {
+    max-width: 200px;
+    max-height: 200px;
 }
 
 .index p {
@@ -67,6 +67,11 @@ header img:hover, h2:hover {
     display: block;
     margin: 0 auto;
 }
+
+
+.search {
+    display: block;
+    margin: 1em auto;
 
 
 /* CART PAGE STYLING */
