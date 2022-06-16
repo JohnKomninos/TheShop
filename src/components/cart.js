@@ -21,6 +21,7 @@ const Cart = (props) => {
   return(
     <>
       <div className="cart-div" key={cartItem.id}>
+        <div className='cart-card'>
         <form onSubmit={handleSubmit}>
         <img src = {cartItem.image}/>
         <h3>{cartItem.title}</h3>
@@ -33,6 +34,7 @@ const Cart = (props) => {
         <input type="submit"/>
         </form>
         <button onMouseDown={props.calculateTotal} onClick={()=>{props.handleDelete(cartItem)}}>X</button>
+        </div>
       </div>
     </>
   )
