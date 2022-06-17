@@ -15,7 +15,7 @@ const App = () => {
   const [cart, setCart] = useState([])
   const [page, setPage] = useState('home')
   const [query, setQuery] = useState('')
-  const [currentUser, setCurrentUser] = useState()
+  const [currentUser, setCurrentUser] = useState(localStorage.getItem('currentUser'))
   const [loginError, setLoginError] = useState(false)
   const [totalPrice, setTotalPrice] = useState(0)
   const [addToCart, setAddToCart] = useState(true)
@@ -47,6 +47,13 @@ const App = () => {
   }
 
 
+  // LOG OUT FUNCTION
+  const logoutUser = () => {
+    setCurrentUser('null')
+    setCart([])
+    localStorage.clear()
+  }
+
   // SHOP INVENTORY PAGE FUNCTIONS
   const getInventory = () => {
     axios.get('https://the-shop-back-end.herokuapp.com/api/inventory').then((response) => {
@@ -55,7 +62,7 @@ const App = () => {
   }
 
   const handleAddToCart = (addedInventoryItem) => {
-    if (currentUser) {
+    if (currentUser && currentUser !== 'null') {
       if(addToCart === true){
       axios.post('https://the-shop-back-end.herokuapp.com/api/cart', addedInventoryItem).then((response) => {
         setCart([...cart, response.data])
@@ -161,12 +168,18 @@ const App = () => {
 
   useEffect(() => {
     getInventory()
+    getCart(currentUser)
   }, [])
 
+  useEffect(() => {
+    localStorage.setItem('currentUser', currentUser)
+  }, [currentUser])
 
   return (
     <>
       <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} cart={cart} />
+
+      <button onClick={logoutUser}>Log Out</button>
 
       {page === 'login' ?
         <Login getUserAccount={getUserAccount} viewCreate={viewCreate} />
@@ -209,7 +222,7 @@ const App = () => {
       : null}
 
       {page === 'cart' ?
-        currentUser ?
+        currentUser && currentUser !== 'null' ?
           <div>
             {cart?.map((cartItem) => {
               return (
