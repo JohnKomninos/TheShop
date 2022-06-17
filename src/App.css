@@ -37,6 +37,21 @@ header div:hover{
     max-height: 2.5em;
 }
 
+@media only screen and (max-width: 700px) {
+  header {
+    min-height: 1em;
+  }
+  .logo:hover, header h2:hover, header div:hover{
+    cursor: pointer;
+    background-color: #42a0ff;
+    border-radius: 10px;
+    border-style: 2px solid;
+    border-color: white;
+    border-width: 1px;
+  }
+}
+
+
 
 /* INDEX PAGE STYLING */
 .welcome-msg {
