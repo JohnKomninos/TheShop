@@ -3,9 +3,9 @@ header {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: rgb(123, 152, 215);
-  padding-left: 2em;
-  padding-right: 2em;
+  background-color: #42a0ff;
+  color: white;
+  min-height: 5em;
 }
 
 header img {
@@ -13,22 +13,80 @@ header img {
   height: 3em;
 }
 
-header img:hover, h2:hover {
+.logo:hover, header h2:hover {
   cursor: pointer;
-  background-color: antiquewhite;
+  background-color: #42a0ff;
   border-radius: 10px;
-  padding: 2px;
+  border-style: solid;
+  border-color: white;
 }
+
+header h3 {
+    display: inline;
+}
+
+header div:hover{
+    border-radius: 10px;
+    border-style: solid;
+    border-color: white;
+    margin: 0;
+}
+
+.logo {
+    width: 200px;
+    max-height: 2.5em;
+}
+
+@media only screen and (max-width: 700px) {
+  header {
+    min-height: 1em;
+  }
+  .logo:hover, header h2:hover, header div:hover{
+    cursor: pointer;
+    background-color: #42a0ff;
+    border-radius: 10px;
+    border-style: 2px solid;
+    border-color: white;
+    border-width: 1px;
+  }
+  header img {
+      max-height: 2em;
+      max-width: 2em
+  }
+  .logo {
+      max-height: 2em;
+      max-width: 150px;
+  }
+}
+
 
 
 /* INDEX PAGE STYLING */
-.index-img {
-  max-width: 30em;
-  max-height: 30em;
+.welcome-msg {
+  text-align: center;
 }
 
-.indexCarousel button {
-    
+.welcome-msg span {
+  color: red;
+  font-weight: 900;
+}
+
+.welcome-msg h3 {
+  margin-top: 5em;
+}
+
+.carousel-container {
+  display: flex;
+  justify-content: center;
+}
+
+.carousel-item {
+  text-align: center;
+}
+
+.carousel-img {
+  width: 30em;
+  padding: 2em 5em
 }
 
 
@@ -38,13 +96,22 @@ header img:hover, h2:hover {
   justify-content: center;
   flex-wrap: wrap;
   gap: 1em;
+  margin-top: -8em;
+  margin-left: 5em;
 }
 
-.inventory-item{
-  background-color: lightgray;
-  width: 25%;
+.inventory-item {
+  background-color: white;
+  width: 15%;
   text-align: center;
-  border-radius: 20px;
+  color: #81B3E6;
+  padding: 1em 0.5em;
+  border-style: solid;
+  border-color: #364C61;
+}
+
+.inventoryItem :hover {
+    background-color: lightgray;
 }
 
 .inventory-item img {
@@ -53,33 +120,78 @@ header img:hover, h2:hover {
   padding: 1em;
 }
 
-.carousel {
-    max-width: 200px;
-    max-height: 200px;
-}
-
-.index p {
-    margin-top: -20px;
-}
-
-.index button {
-    display: block;
-    margin: 10px;
-}
-
 .inline {
     display: inline-block;
 }
 
 .block {
     display: block;
-    margin: 0 auto;
+    margin: 0 1em;
 }
-
 
 .search {
     display: block;
     margin: 1em auto;
+    padding: 1em;
+    width: 50%;
+    border-color: #364C61;
+    color: #42a0ff;
+}
+
+.imageContainer {
+    display: inline-flex;
+    width: 150px;
+    height: 150px;
+    justify-content: center;
+}
+
+.filter {
+    background-color: white;
+    border: none;
+    padding: 1em;
+    display: block;
+}
+
+.filter:hover {
+    background-color: #42a0ff;
+    color: white;
+}
+
+.filterContainer {
+    display: inline-block;
+}
+
+@media only screen and (max-width: 1300px) {
+  .inventory-item {
+    width: 20%;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .inventory-item {
+    width: 30%;
+  }
+  .inventory-container {
+      margin-top: 2em;
+      margin-left: auto;
+  }
+  .filterContainer {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: -1em;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .inventory-item {
+    width: 40%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .inventory-item {
+    width: 80%;
+  }
 }
 
 /* CART PAGE STYLING */
@@ -100,4 +212,20 @@ header img:hover, h2:hover {
     padding: 20px;
     text-align: center;
     min-width: 300px;
+}
+
+
+/* LOGIN STYLING */
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+/* CREATE ACCOUNT STYLING */
+.create-account {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
