@@ -5,6 +5,7 @@ header {
   align-items: center;
   background-color: #42a0ff;
   color: white;
+  min-height: 5em;
 }
 
 header img {
@@ -12,12 +13,23 @@ header img {
   height: 3em;
 }
 
-header img:hover, header h2:hover {
+.logo:hover, header h2:hover {
   cursor: pointer;
   background-color: #42a0ff;
   border-radius: 10px;
   border-style: solid;
   border-color: white;
+}
+
+header h3 {
+    display: inline;
+}
+
+header div:hover{
+    border-radius: 10px;
+    border-style: solid;
+    border-color: white;
+    margin: 0;
 }
 
 .logo {
@@ -61,40 +73,22 @@ header img:hover, header h2:hover {
   justify-content: center;
   flex-wrap: wrap;
   gap: 1em;
-  margin-top: 1em;
+  margin-top: -8em;
+  margin-left: 5em;
 }
 
 .inventory-item {
-  background-color: #364C61;
+  background-color: white;
   width: 15%;
   text-align: center;
-  border-radius: 20px;
   color: #81B3E6;
   padding: 1em 0.5em;
+  border-style: solid;
+  border-color: #364C61;
 }
 
-@media only screen and (max-width: 1300px) {
-  .inventory-item {
-    width: 20%;
-  }
-}
-
-@media only screen and (max-width: 1000px) {
-  .inventory-item {
-    width: 30%;
-  }
-}
-
-@media only screen and (max-width: 700px) {
-  .inventory-item {
-    width: 40%;
-  }
-}
-
-@media only screen and (max-width: 500px) {
-  .inventory-item {
-    width: 80%;
-  }
+.inventoryItem :hover {
+    background-color: lightgray;
 }
 
 .inventory-item img {
@@ -115,6 +109,10 @@ header img:hover, header h2:hover {
 .search {
     display: block;
     margin: 1em auto;
+    padding: 1em;
+    width: 50%;
+    border-color: #364C61;
+    color: #42a0ff;
 }
 
 .imageContainer {
@@ -124,6 +122,54 @@ header img:hover, header h2:hover {
     justify-content: center;
 }
 
+.filter {
+    background-color: white;
+    border: none;
+    padding: 1em;
+    display: block;
+}
+
+.filter:hover {
+    background-color: #42a0ff;
+    color: white;
+}
+
+.filterContainer {
+    display: inline-block;
+}
+
+@media only screen and (max-width: 1300px) {
+  .inventory-item {
+    width: 20%;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .inventory-item {
+    width: 30%;
+  }
+  .inventory-container {
+      margin-top: 2em;
+      margin-left: auto;
+  }
+  .filterContainer {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: -1em;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .inventory-item {
+    width: 40%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .inventory-item {
+    width: 80%;
+  }
+}
 
 /* CART PAGE STYLING */
 .cart-div{
@@ -159,11 +205,4 @@ header img:hover, header h2:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-
-/* MISC STYLING */
-.filterContainer {
-    display: flex;
-    justify-content: center;
 }
