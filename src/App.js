@@ -12,7 +12,7 @@ import CreateAccount from './components/CreateAccount';
 const App = () => {
 
   const [inventory, setInventory] = useState()
-  const [cart, setCart] = useState()
+  const [cart, setCart] = useState([])
   const [page, setPage] = useState('home')
   const [query, setQuery] = useState('')
   const [currentUser, setCurrentUser] = useState()
@@ -32,6 +32,7 @@ const App = () => {
       })
       .then((response) => {
         setCurrentUser(response.data.email)
+        getCart(response.data.email)
         viewShop()
       })
   }
@@ -40,7 +41,7 @@ const App = () => {
   // USER AUTHORIZATION FUNCTION FOR CREATING NEW ACCOUNT
   const handleCreateNewUser = (newUserAccount) => {
     axios.post('https://the-shop-back-end.herokuapp.com/api/useraccount', newUserAccount).then((response) => {
-        setPage('login')
+      setPage('login')
     })
   }
 
@@ -60,19 +61,18 @@ const App = () => {
     } else {
       viewLogin()
     }
-
   }
 
 
   // CART PAGE FUNCTIONS
-  const getCart = () => {
+  const getCart = (queriedUser) => {
     axios.get('https://the-shop-back-end.herokuapp.com/api/cart').then((response) => {
-      setCart(response.data.filter(cartItem => cartItem.email === currentUser))
+      setCart(response.data.filter(cartItem => cartItem.email === queriedUser))
     })
   }
 
   const updateCart = (editCart,  quantity) =>{
-    setTotalPrice(totalPrice + ((editCart.quantity-quantity)*editCart.price))
+    setTotalPrice(totalPrice + ((editCart.quantity-quantity)* editCart.price))
     axios.put('https://the-shop-back-end.herokuapp.com/api/cart/' + editCart.id, editCart)
     .then((response)=>{
       setCart(cart.map((item)=>{
@@ -85,7 +85,7 @@ const App = () => {
     let total = 0
     cart.map((item) => {
       let quantityPrice = item.price * item.quantity
-      total+=quantityPrice
+      total += quantityPrice
       return setTotalPrice(total)
     })
   }
@@ -103,11 +103,10 @@ const App = () => {
     cart.map((deleteItem) => {
       axios.delete('https://the-shop-back-end.herokuapp.com/api/cart/' + deleteItem.id)
       .then((response) => {
-        getCart()
+        getCart(currentUser)
       })
     })
   }
-
 
 
   //SORT FUNCTIONS
@@ -127,11 +126,6 @@ const App = () => {
 
   const viewShop = () => {
     setPage('shop')
-    setLoginError(false)
-  }
-
-  const userCart = () =>{
-    getCart()
     setLoginError(false)
   }
 
@@ -159,7 +153,7 @@ const App = () => {
 
   return (
     <>
-      <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} cart={cart} userCart={userCart}/>
+      <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} cart={cart} />
       
       {page === 'login' ?
         <Login getUserAccount={getUserAccount} viewCreate={viewCreate} />
