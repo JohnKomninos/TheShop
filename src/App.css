@@ -255,3 +255,40 @@ header div:hover{
   text-align: center;
   font-size: 1.75em;
 }
+
+/* styling on the total PAGE */
+.total{
+  margin:0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width:300px;
+  border: 2px solid black;
+  margin-bottom: 20px;
+}
+
+.place-order{
+  display: flex;
+  flex-wrap: wrap;
+  width:90%;
+  height:90px;
+  justify-content: center;
+  text-align: center;
+}
+
+.place-order button{
+  width: 100%;
+  margin-top: 10px;
+}
+.order-summary{
+  display: flex;
+  width:90%;
+  height:40px;
+}
+
+.order-items{
+  display: flex;
+  width: 90%;
+  height:45px;
+  justify-content:space-between;
+}
