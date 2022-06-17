@@ -8,7 +8,7 @@ import Cart from './components/cart'
 import Header from './components/Header'
 import Login from './components/Login';
 import CreateAccount from './components/CreateAccount';
-
+import Total from './components/Total'
 const App = () => {
 
   const [inventory, setInventory] = useState()
@@ -232,12 +232,7 @@ const App = () => {
               )
             })}
             <button onClick={deleteCart}>Empty the cart</button>
-            <div>
-              <h2>Total:</h2>
-              <h1 className = 'inline'>$</h1>
-              <h1 className = 'inline'>{totalPriceHumanize}</h1>
-              <h1 className = 'inline'>.00</h1>
-            </div>
+            <Total totalPriceHumanize={totalPriceHumanize} totalPrice={totalPrice}/>
           </div>
         : viewLogin()
       : null}
