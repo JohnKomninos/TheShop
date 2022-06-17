@@ -153,29 +153,29 @@ const App = () => {
 
   return (
     <>
-      <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} cart={cart} />
-      
+      <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} cart={cart} setQuery={setQuery}/>
+
       {page === 'login' ?
         <Login getUserAccount={getUserAccount} viewCreate={viewCreate} />
       : null}
-      
+
       {page === 'create' ?
         <CreateAccount handleCreateNewUser={handleCreateNewUser} viewLogin={viewLogin} />
       : null}
-      
+
       {loginError ? <h3>Wrong email or password!</h3> : null}
-      
+
       {page === 'home' ?
         inventory ? <Index inventory={inventory} /> : null
       : null}
-      
+
       {page === 'shop' ?
         <>
           <input className='search' placeholder = 'Search by item name' onChange = {event => setQuery(event.target.value)}/>
           <div className = 'filterContainer'>
-            <button className = 'block' onClick = {priceDesc}>Price High to Low</button>
-            <button className = 'block' onClick = {priceAsc}>Price Low to High</button>
-            <button className = 'block' onClick = {getInventory}>Reset Filters</button>
+            <button className = 'filter' onClick = {priceDesc}>Price High to Low</button>
+            <button className = 'filter' onClick = {priceAsc}>Price Low to High</button>
+            <button className = 'filter' onClick = {getInventory}>Reset Filters</button>
           </div>
           <div className='inventory-container'>
             {inventory?.filter(inventoryItem => {
