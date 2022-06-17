@@ -89,11 +89,11 @@ const App = () => {
     })
   }
 
-  const handleDelete = (deletedItem) => {
+  const handleDelete = (deletedItem, quantity) => {
     axios.delete('https://the-shop-back-end.herokuapp.com/api/cart/' + deletedItem.id)
     .then((response) => {
       setCart(cart.filter(cartItem => cartItem.id !== deletedItem.id))
-      setTotalPrice(totalPrice - (deletedItem.price * deletedItem.quantity))
+      setTotalPrice(totalPrice - (deletedItem.price * quantity))
     })
   }
 

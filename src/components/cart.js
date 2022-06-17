@@ -36,7 +36,7 @@ const Cart = (props) => {
         <input type="number" name='quantity' onChange={handleChange} min="1" max="100"/>
         <input type="submit"/>
         </form>
-        <button onMouseDown={props.calculateTotal} onClick={()=>{props.handleDelete(cartItem)}}>X</button>
+        <button onMouseDown={props.calculateTotal} onClick={()=>{props.handleDelete(cartItem, quantity)}}>X</button>
         </div>
       </div>
     </>
