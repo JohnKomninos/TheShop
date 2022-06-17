@@ -14,8 +14,8 @@ const Login = (props) => {
     }
 
     return (
-        <div>
-            <h3>Enter your email and password to log in:</h3>
+        <div className='login'>
+            <h3>Log in to your account to shop:</h3>
             <form onSubmit={handleSubmit}>
                 <input type='text' name='email' placeholder='EMAIL ADDRESS' onChange={handleUserChange} /><br />
                 <input type='password' name='password' placeholder='PASSWORD' onChange={handleUserChange} /><br />

@@ -20,7 +20,6 @@ header img:hover, header h2:hover {
   border-color: white;
 }
 
-
 .logo {
     width: 200px;
     max-height: 2.5em;
@@ -28,27 +27,74 @@ header img:hover, header h2:hover {
 
 
 /* INDEX PAGE STYLING */
-.index-img {
-  max-width: 30em;
-  max-height: 30em;
+.welcome-msg {
+  text-align: center;
+}
+
+.welcome-msg span {
+  color: red;
+  font-weight: 900;
+}
+
+.welcome-msg h3 {
+  margin-top: 5em;
+}
+
+.carousel-container {
+  display: flex;
+  justify-content: center;
+}
+
+.carousel-item {
+  text-align: center;
+}
+
+.carousel-img {
+  width: 30em;
+  padding: 2em 5em
 }
 
 
 /* SHOP PAGE STYLING */
 .inventory-container {
-  display: inline-flex;
-  justify-content: flex-end;
-  margin-right: 5em;
+  display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 1em;
+  margin-top: 1em;
 }
 
-.inventory-item{
+.inventory-item {
   background-color: #364C61;
-  width: 25%;
+  width: 15%;
   text-align: center;
   border-radius: 20px;
   color: #81B3E6;
+  padding: 1em 0.5em;
+}
+
+@media only screen and (max-width: 1300px) {
+  .inventory-item {
+    width: 20%;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .inventory-item {
+    width: 30%;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .inventory-item {
+    width: 40%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .inventory-item {
+    width: 80%;
+  }
 }
 
 .inventory-item img {
@@ -57,29 +103,14 @@ header img:hover, header h2:hover {
   padding: 1em;
 }
 
-.carousel {
-    max-width: 200px;
-    max-height: 200px;
-}
-
-.index p {
-    margin-top: -20px;
-}
-
-.index button {
-    display: block;
-    margin: 10px;
-}
-
 .inline {
     display: inline-block;
 }
 
 .block {
     display: block;
-    margin: 0 auto;
+    margin: 0 1em;
 }
-
 
 .search {
     display: block;
@@ -92,6 +123,7 @@ header img:hover, header h2:hover {
     height: 150px;
     justify-content: center;
 }
+
 
 /* CART PAGE STYLING */
 .cart-div{
@@ -113,8 +145,25 @@ header img:hover, header h2:hover {
     min-width: 300px;
 }
 
-/* MISC STYLING */
 
+/* LOGIN STYLING */
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+/* CREATE ACCOUNT STYLING */
+.create-account {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+/* MISC STYLING */
 .filterContainer {
-    display: inline-block;
+    display: flex;
+    justify-content: center;
 }
