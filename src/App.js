@@ -32,8 +32,6 @@ const App = () => {
       })
       .then((response) => {
         setCurrentUser(response.data.email)
-        getCart()
-        calculateTotal()
         viewShop()
       })
   }
@@ -72,7 +70,8 @@ const App = () => {
     })
   }
 
-  const updateCart = (editCart) =>{
+  const updateCart = (editCart,  quantity) =>{
+    setTotalPrice(totalPrice + ((editCart.quantity-quantity)*editCart.price))
     axios.put('https://the-shop-back-end.herokuapp.com/api/cart/' + editCart.id, editCart)
     .then((response)=>{
       setCart(cart.map((item)=>{
@@ -94,7 +93,7 @@ const App = () => {
     axios.delete('https://the-shop-back-end.herokuapp.com/api/cart/' + deletedItem.id)
     .then((response) => {
       setCart(cart.filter(cartItem => cartItem.id !== deletedItem.id))
-      setTotalPrice(totalPrice - deletedItem.price)
+      setTotalPrice(totalPrice - (deletedItem.price * deletedItem.quantity))
     })
   }
 
@@ -107,6 +106,8 @@ const App = () => {
       })
     })
   }
+
+
 
   //SORT FUNCTIONS
 
