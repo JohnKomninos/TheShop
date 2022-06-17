@@ -49,6 +49,14 @@ header div:hover{
     border-color: white;
     border-width: 1px;
   }
+  header img {
+      max-height: 2em;
+      max-width: 2em
+  }
+  .logo {
+      max-height: 2em;
+      max-width: 150px;
+  }
 }
 
 
