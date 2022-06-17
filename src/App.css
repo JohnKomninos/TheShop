@@ -13,6 +13,12 @@ header img {
   height: 3em;
 }
 
+.logo, header h2, header div {
+  border-radius: 10px;
+  border-style: solid;
+  border-color: #42a0ff;
+}
+
 .logo:hover, header h2:hover {
   cursor: pointer;
   background-color: #42a0ff;
@@ -41,6 +47,14 @@ header div:hover{
   header {
     min-height: 1em;
   }
+
+  .logo, header h2, header div {
+    border-radius: 10px;
+    border-style: 2px solid;
+    border-color: #42a0ff;
+    border-width: 1px;
+  }
+
   .logo:hover, header h2:hover, header div:hover{
     cursor: pointer;
     background-color: #42a0ff;
