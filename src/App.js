@@ -175,9 +175,9 @@ const App = () => {
       {page === 'create' ?
         <CreateAccount handleCreateNewUser={handleCreateNewUser} viewLogin={viewLogin} />
       : null}
-
-      {loginError ? <h3>Wrong email or password!</h3> : null}
-
+      
+      {loginError ? <h3 className='error-msg'>Wrong email or password!</h3> : null}
+      
       {page === 'home' ?
         inventory ? <Index inventory={inventory} /> : null
       : null}
