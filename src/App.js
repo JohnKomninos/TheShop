@@ -18,6 +18,7 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState()
   const [loginError, setLoginError] = useState(false)
   const [totalPrice, setTotalPrice] = useState(0)
+  const [addToCart, setAddToCart] = useState(true)
 
   const totalPriceHumanize = <RefineNumber number = {totalPrice}/>
 
@@ -55,14 +56,26 @@ const App = () => {
 
   const handleAddToCart = (addedInventoryItem) => {
     if (currentUser) {
+      if(addToCart === true){
       axios.post('https://the-shop-back-end.herokuapp.com/api/cart', addedInventoryItem).then((response) => {
         setCart([...cart, response.data])
-      })
+      })}
+      else{
+        alert("This item is already in the cart")
+        setAddToCart(true)
+      }
     } else {
       viewLogin()
     }
   }
 
+  const checkDuplicate = (addedInventoryItem) => {
+    cart.map((item)=>{
+      if(addedInventoryItem.title === item.title){
+        setAddToCart(false)
+      }
+    })
+  }
 
   // CART PAGE FUNCTIONS
   const getCart = (queriedUser) => {
@@ -153,7 +166,7 @@ const App = () => {
 
   return (
     <>
-      <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} cart={cart} setQuery={setQuery}/>
+      <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} cart={cart} />
 
       {page === 'login' ?
         <Login getUserAccount={getUserAccount} viewCreate={viewCreate} />
@@ -187,7 +200,7 @@ const App = () => {
             }).map((inventoryItem) => {
               return (
                 <div className='inventory-item' key={inventoryItem.id}>
-                  <DisplayItem inventoryItem={inventoryItem} handleAddToCart={handleAddToCart} currentUser={currentUser} />
+                  <DisplayItem inventoryItem={inventoryItem} handleAddToCart={handleAddToCart} currentUser={currentUser} checkDuplicate={checkDuplicate} />
                 </div>
               )
             })}

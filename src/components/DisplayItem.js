@@ -17,7 +17,8 @@ const DisplayItem = (props) => {
             <h3 className='inline'>{number}</h3>
             <h3 className='inline'>.00</h3>
             <br />
-            <button className='add-to-cart' value={props.inventoryItem} onClick={(event) => props.handleAddToCart(cartItem)}>Add To Cart</button>
+            <button className='add-to-cart' value={props.inventoryItem}
+            onMouseUp={(event)=>{props.checkDuplicate(cartItem)}} onTouchCancel={(event)=>{props.checkDuplicate(cartItem)}} onClick={(event) => props.handleAddToCart(cartItem)}>Add To Cart</button>
         </>
     )
 }
