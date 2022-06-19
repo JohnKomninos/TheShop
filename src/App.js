@@ -52,6 +52,7 @@ const App = () => {
   const logoutUser = () => {
     setCurrentUser('null')
     setCart([])
+    setTotalQuantity(0)
     localStorage.clear()
   }
 
@@ -67,6 +68,7 @@ const App = () => {
       if(addToCart === true){
       axios.post('https://the-shop-back-end.herokuapp.com/api/cart', addedInventoryItem).then((response) => {
         setCart([...cart, response.data])
+        setTotalQuantity(totalQuantity+1)
       })}
       else{
         alert("This item is already in the cart")
@@ -89,6 +91,12 @@ const App = () => {
   const getCart = (queriedUser) => {
     axios.get('https://the-shop-back-end.herokuapp.com/api/cart').then((response) => {
       setCart(response.data.filter(cartItem => cartItem.email === queriedUser))
+       let finalQuantity = 0
+      response.data.map((quantities)=>{
+        if(quantities.email === queriedUser)
+        finalQuantity += quantities.quantity
+        setTotalQuantity(finalQuantity)
+      })
     })
   }
 
@@ -124,7 +132,7 @@ const App = () => {
     .then((response) => {
       setCart(cart.filter(cartItem => cartItem.id !== deletedItem.id))
       setTotalPrice(totalPrice - (deletedItem.price * quantity))
-      setTotalQuantity(totalQuantity - deletedItem.quantity)
+      setTotalQuantity(totalQuantity - quantity)
     })
   }
 
