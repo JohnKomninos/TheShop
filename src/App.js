@@ -166,7 +166,7 @@ const App = () => {
 
   return (
     <>
-      <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} cart={cart} />
+      <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} cart={cart}/>
 
       {page === 'login' ?
         <Login getUserAccount={getUserAccount} viewCreate={viewCreate} />

@@ -120,15 +120,6 @@ header div:hover{
   padding: 1em;
 }
 
-.inline {
-    display: inline-block;
-}
-
-.block {
-    display: block;
-    margin: 0 1em;
-}
-
 .search {
     display: block;
     margin: 1em auto;
@@ -196,23 +187,36 @@ header div:hover{
 
 /* CART PAGE STYLING */
 .cart-div{
-  display: inline-flex;
-  justify-content: center;
+  display: block;
   flex-wrap: wrap;
   margin: 1em;
 }
 
 .cart-div img {
     max-width: 200px;
+    max-height: 100px;
 }
 
 .cart-card {
     background-color: lightgray;
     border-radius: 20px;
     padding: 20px;
-    text-align: center;
-    min-width: 300px;
+    text-align: left;
 }
+
+.cart-card h3, .cart-card p {
+    display: inline;
+}
+
+@media only screen and (max-width: 700px) {
+  .cart-card {
+    text-align: center;
+  }
+  .cart-card h3 {
+      display: block;
+  }
+}
+
 
 
 /* LOGIN STYLING */
@@ -228,4 +232,19 @@ header div:hover{
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* MISCELLANEOUS STYLING */
+
+.inline {
+    display: inline-block;
+}
+
+.block {
+    display: block;
+    margin: 0 1em;
+}
+
+.total {
+    display: inline-block;
 }
