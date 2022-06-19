@@ -257,13 +257,72 @@ header div:hover{
 }
 
 /* styling on the total PAGE */
+.parent-flex{
+  display: flex;
+  flex-wrap: wrap;
+  width:100%;
+  align-items: flex-start;
+}
+
+.details{
+  margin:0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  width:600px;
+  height:616px;
+}
+
+.address{
+  display: flex;
+  justify-content: center;
+  width:100%;
+  border: 2px solid gray;
+  border-radius: 4px;
+  height:230px;
+}
+
+.street1{
+  width:180px;
+  margin-left: 5px;
+}
+
+.street2{
+  width:180px;
+}
+
+.street2{
+  width:190px;
+}
+
+.voucher{
+  width:120px;
+  margin-right: 5px;
+}
+
+.delivery{
+  width:100%;
+  border: 2px solid gray;
+  border-radius: 4px;
+  height:250px;
+}
+
+.options{
+  margin-left: 10px;
+}
+
+.input{
+  margin-bottom: 10px;
+}
+
 .total{
   margin:0 auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   width:300px;
-  border: 2px solid black;
+  border: 2px solid gray;
+  border-radius: 4px;
   margin-bottom: 20px;
 }
 
@@ -311,11 +370,11 @@ header div:hover{
 }
 
 .underline{
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid gray;
 }
 
 .bottom-border{
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid gray;
 }
 
 .order-bottom{
