@@ -279,6 +279,10 @@ header div:hover{
 .place-order button{
   width: 100%;
   margin-top: 10px;
+  height: 25px;
+  background-color:rgb(255, 215, 0);
+  font-weight: bold;
+  cursor:pointer;
 }
 .order-summary{
   display: flex;
@@ -291,4 +295,32 @@ header div:hover{
   width: 90%;
   height:45px;
   justify-content:space-between;
+}
+
+.order-total{
+  display: flex;
+  width: 90%;
+  height:45px;
+  justify-content:space-between;
+  margin-bottom: 10px;
+  color: red;
+}
+
+.blue{
+  color: blue;
+}
+
+.underline{
+  border-bottom: 2px solid black;
+}
+
+.bottom-border{
+  border-bottom: 2px solid black;
+}
+
+.order-bottom{
+  color:blue;
+  text-align: center;
+  border-top: 2px solid gray;
+  background:rgb(240,240,240);
 }

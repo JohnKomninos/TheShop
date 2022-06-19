@@ -19,6 +19,7 @@ const App = () => {
   const [loginError, setLoginError] = useState(false)
   const [totalPrice, setTotalPrice] = useState(0)
   const [addToCart, setAddToCart] = useState(true)
+  const [totalQuantity, setTotalQuantity] = useState(0)
 
   const totalPriceHumanize = <RefineNumber number = {totalPrice}/>
 
@@ -91,7 +92,15 @@ const App = () => {
     })
   }
 
-  const updateCart = (editCart,  quantity) =>{
+  const updateCart = (editCart,  quantity) => {
+    let finalQuantity = 0
+    cart.map((quantities)=>{
+      if(editCart.title !== quantities.title){
+        finalQuantity += quantities.quantity
+        return finalQuantity
+      }
+    })
+    setTotalQuantity(finalQuantity + parseInt(editCart.quantity))
     setTotalPrice(totalPrice + ((editCart.quantity-quantity)* editCart.price))
     axios.put('https://the-shop-back-end.herokuapp.com/api/cart/' + editCart.id, editCart)
     .then((response)=>{
@@ -115,11 +124,13 @@ const App = () => {
     .then((response) => {
       setCart(cart.filter(cartItem => cartItem.id !== deletedItem.id))
       setTotalPrice(totalPrice - (deletedItem.price * quantity))
+      setTotalQuantity(totalQuantity - deletedItem.quantity)
     })
   }
 
   const deleteCart = () => {
     setTotalPrice(0)
+    setTotalQuantity(0)
     cart.map((deleteItem) => {
       axios.delete('https://the-shop-back-end.herokuapp.com/api/cart/' + deleteItem.id)
       .then((response) => {
@@ -177,7 +188,7 @@ const App = () => {
 
   return (
     <>
-      <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} cart={cart} />
+      <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} cart={cart} totalQuantity={totalQuantity} />
 
       <button onClick={logoutUser}>Log Out</button>
 
@@ -188,9 +199,9 @@ const App = () => {
       {page === 'create' ?
         <CreateAccount handleCreateNewUser={handleCreateNewUser} viewLogin={viewLogin} />
       : null}
-      
+
       {loginError ? <h3 className='error-msg'>Wrong email or password!</h3> : null}
-      
+
       {page === 'home' ?
         inventory ? <Index inventory={inventory} /> : null
       : null}
@@ -232,7 +243,7 @@ const App = () => {
               )
             })}
             <button onClick={deleteCart}>Empty the cart</button>
-            <Total totalPriceHumanize={totalPriceHumanize} totalPrice={totalPrice}/>
+            <Total totalPriceHumanize={totalPriceHumanize} totalPrice={totalPrice} totalQuantity={totalQuantity}/>
           </div>
         : viewLogin()
       : null}
