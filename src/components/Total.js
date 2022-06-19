@@ -33,25 +33,25 @@ const Total = (props) =>{
         <h4>Choose a delivery option:</h4>
         <div className="input" >
           <input type="radio" value="Free"/>
-          <label for="Free">Free One-Day Delivery<br/>
+          <label for="Free"><span className="green">Free One-Day Delivery</span><br/>
           With your trial of TheShop platinum plus
           </label>
         </div>
         <div className="input" >
           <input type="radio" value="Free"/>
-          <label for="Free">Friday, December 25<br/>
+          <label for="Free"><span className="green">Friday, December 25</span><br/>
           FREE Shipping
           </label>
         </div>
         <div className="input" >
           <input type="radio" value="Free"/>
-          <label for="Free">Tuesday, September 7<br/>
+          <label for="Free"><span className="green">Tuesday, September 7</span><br/>
           $5.99 - Shipping
           </label>
         </div>
         <div className="input">
           <input type="radio" value="Free"/>
-          <label for="Free">Wednesday, July 14<br/>
+          <label for="Free"><span className="green">Wednesday, July 14</span><br/>
           $12.00 - Shipping
           </label>
         </div>

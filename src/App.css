@@ -315,6 +315,10 @@ header div:hover{
   margin-bottom: 10px;
 }
 
+.green{
+  color: green;
+  font-weight: bold;
+}
 .total{
   margin:0 auto;
   display: flex;
