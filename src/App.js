@@ -184,6 +184,9 @@ const App = () => {
     setLoginError(false)
   }
 
+const viewCheckout = () => {
+    setPage('total')
+}
 
   useEffect(() => {
     getInventory()
@@ -251,10 +254,12 @@ const App = () => {
               )
             })}
             <button onClick={deleteCart}>Empty the cart</button>
-            <Total totalPriceHumanize={totalPriceHumanize} totalPrice={totalPrice} totalQuantity={totalQuantity}/>
+            <button onClick={viewCheckout}>Proceed to checkout</button>
           </div>
         : viewLogin()
       : null}
+      {page === 'total' ?
+      <Total totalPriceHumanize={totalPriceHumanize} totalPrice={totalPrice} totalQuantity={totalQuantity} viewCart={viewCart}/> : null}
     </>
   )
 }
