@@ -147,7 +147,7 @@ const Total = (props) =>{
       </div>
     </div>
   </div>
-  <button onClick={props.viewCart}>Return to Cart</button>
+  <button className="button" onClick={props.viewCart}>Return to Cart</button>
   </>
   )
 }
