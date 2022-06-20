@@ -259,7 +259,10 @@ const viewCheckout = () => {
         : viewLogin()
       : null}
       {page === 'total' ?
-      <Total totalPriceHumanize={totalPriceHumanize} totalPrice={totalPrice} totalQuantity={totalQuantity} viewCart={viewCart}/> : null}
+        currentUser && currentUser !== 'null' ?
+          <Total totalPriceHumanize={totalPriceHumanize} totalPrice={totalPrice} totalQuantity={totalQuantity} viewCart={viewCart}/>
+        : viewLogin()
+      : null}
      <button className = 'button' onClick={logoutUser}>Log Out</button>
     </>
   )

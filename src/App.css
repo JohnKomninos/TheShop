@@ -247,6 +247,7 @@ header div:hover{
   flex-wrap: wrap;
   width:100%;
   align-items: flex-start;
+  margin-top: 2em;
 }
 
 .details{
@@ -382,10 +383,6 @@ header div:hover{
 .block {
     display: block;
     margin: 0 1em;
-}
-
-.total {
-    display: inline-block;
 }
 
 .button {
