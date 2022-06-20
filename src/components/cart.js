@@ -25,21 +25,17 @@ const Cart = (props) => {
     <>
       <div className="cart-div" key={cartItem.id}>
         <div className='cart-card'>
-        <form onSubmit={handleSubmit}>
-        <img src = {cartItem.image}/>
-        <h3 className = 'block'>{cartItem.title}</h3>
-        <p className = 'block'>{cartItem.description}</p>
-        {/* <h3 className = 'inline'>$</h3> */}
-        <br/>
-        <h3>${quantityHumanized}.00</h3>
-        <br/>
-        {/* <h3 className = 'inline'>.00</h3> */}
-        <p className = 'block'>Quantity: {cartItem.quantity}</p>
-        <label className = 'block'>Change Quantity:</label>
-        <input type="number" name='quantity' onChange={handleChange} min="1" max="100"/>
-        <input className = 'button' type="submit"/>
-        </form>
-        <button className = 'button' onMouseDown={props.calculateTotal} onClick={()=>{props.handleDelete(cartItem, quantity)}}>X</button>
+          <form onSubmit={handleSubmit}>
+            <img src = {cartItem.image}/>
+            <h3 className = 'block'>{cartItem.title}</h3>
+            <p className = 'block'>{cartItem.description}</p>
+            <h3 className='block' id='cart-price'>${quantityHumanized}.00</h3>
+            <p className = 'block'>Quantity: {cartItem.quantity}</p>
+            <label className = 'block'>Change Quantity:</label>
+            <input type="number" name='quantity' onChange={handleChange} min="1" max="100"/>
+            <input className = 'button' type="submit"/>
+          </form>
+          <button className = 'button' onMouseDown={props.calculateTotal} onClick={()=>{props.handleDelete(cartItem, quantity)}}>X</button>
         </div>
       </div>
     </>
