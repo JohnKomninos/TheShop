@@ -19,9 +19,9 @@ const Login = (props) => {
             <form onSubmit={handleSubmit}>
                 <input type='text' name='email' placeholder='EMAIL ADDRESS' onChange={handleUserChange} /><br />
                 <input type='password' name='password' placeholder='PASSWORD' onChange={handleUserChange} /><br />
-                <input className='submit-btn' type='submit' />
+                <input className='button' type='submit' />
                 <h3>Don't have an account? Create one here:</h3>
-                <button className='create-back-btn' onClick={props.viewCreate}>Create Account</button>
+                <button className='button' onClick={props.viewCreate}>Create Account</button>
             </form>
         </div>
     )

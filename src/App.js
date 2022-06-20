@@ -200,9 +200,8 @@ const viewCheckout = () => {
   return (
     <>
 
-      <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} cart={cart} totalQuantity={totalQuantity} />
+      <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} cart={cart} totalQuantity={totalQuantity}/>
 
-      <button onClick={logoutUser}>Log Out</button>
 
       {page === 'login' ?
         <Login getUserAccount={getUserAccount} viewCreate={viewCreate} />
@@ -254,13 +253,14 @@ const viewCheckout = () => {
                 </div>
               )
             })}
-            <button onClick={deleteCart}>Empty the cart</button>
-            <button onClick={viewCheckout}>Proceed to checkout</button>
+            <button className = 'button' onClick={deleteCart}>Empty Cart</button>
+            <button className = 'button' onClick={viewCheckout}>Checkout</button>
           </div>
         : viewLogin()
       : null}
       {page === 'total' ?
       <Total totalPriceHumanize={totalPriceHumanize} totalPrice={totalPrice} totalQuantity={totalQuantity} viewCart={viewCart}/> : null}
+     <button className = 'button' onClick={logoutUser}>Log Out</button>
     </>
   )
 }

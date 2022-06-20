@@ -6,9 +6,9 @@ const Total = (props) =>{
     <div className="details">
       <div className="address">
         <div className="street1">
-          <h4>Shipping address</h4>
+          <h4>Shipping Address</h4>
           <p>(Name)</p>
-          <p>(street)</p>
+          <p>(Street)</p>
           <p>(City, State)</p>
           <p>(Phone)</p>
         </div>
@@ -147,7 +147,7 @@ const Total = (props) =>{
       </div>
     </div>
   </div>
-  <button onClick={props.viewCart}>Retun to cart</button>
+  <button onClick={props.viewCart}>Return to Cart</button>
   </>
   )
 }
