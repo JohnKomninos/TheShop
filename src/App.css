@@ -375,6 +375,16 @@ header div:hover{
   background:rgb(240,240,240);
 }
 
+.flex-parent2{
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top:2em;
+  word-break: break-word;
+  justify-content: center;
+}
+
 /* MISCELLANEOUS STYLING */
 
 .inline {
