@@ -14,14 +14,14 @@ const Login = (props) => {
     }
 
     return (
-        <div className='login'>
+        <div className='login-create-form'>
             <h3>Log in to your account to shop:</h3>
             <form onSubmit={handleSubmit}>
                 <input type='text' name='email' placeholder='EMAIL ADDRESS' onChange={handleUserChange} /><br />
                 <input type='password' name='password' placeholder='PASSWORD' onChange={handleUserChange} /><br />
-                <input type='submit' />
+                <input className='button' type='submit' />
                 <h3>Don't have an account? Create one here:</h3>
-                <button onClick={props.viewCreate}>Create Account</button>
+                <button className='button' onClick={props.viewCreate}>Create Account</button>
             </form>
         </div>
     )

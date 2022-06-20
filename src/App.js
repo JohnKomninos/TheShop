@@ -8,17 +8,20 @@ import Cart from './components/cart'
 import Header from './components/Header'
 import Login from './components/Login';
 import CreateAccount from './components/CreateAccount';
-
+import Total from './components/Total'
+import Confirmation from './components/confirmation'
 const App = () => {
+
 
   const [inventory, setInventory] = useState()
   const [cart, setCart] = useState([])
   const [page, setPage] = useState('home')
   const [query, setQuery] = useState('')
-  const [currentUser, setCurrentUser] = useState()
+  const [currentUser, setCurrentUser] = useState(localStorage.getItem('currentUser'))
   const [loginError, setLoginError] = useState(false)
   const [totalPrice, setTotalPrice] = useState(0)
   const [addToCart, setAddToCart] = useState(true)
+  const [totalQuantity, setTotalQuantity] = useState(0)
 
   const totalPriceHumanize = <RefineNumber number = {totalPrice}/>
 
@@ -47,6 +50,14 @@ const App = () => {
   }
 
 
+  // LOG OUT FUNCTION
+  const logoutUser = () => {
+    setCurrentUser('null')
+    setCart([])
+    setTotalQuantity(0)
+    localStorage.clear()
+  }
+
   // SHOP INVENTORY PAGE FUNCTIONS
   const getInventory = () => {
     axios.get('https://the-shop-back-end.herokuapp.com/api/inventory').then((response) => {
@@ -55,10 +66,11 @@ const App = () => {
   }
 
   const handleAddToCart = (addedInventoryItem) => {
-    if (currentUser) {
+    if (currentUser && currentUser !== 'null') {
       if(addToCart === true){
       axios.post('https://the-shop-back-end.herokuapp.com/api/cart', addedInventoryItem).then((response) => {
         setCart([...cart, response.data])
+        setTotalQuantity(totalQuantity+1)
       })}
       else{
         alert("This item is already in the cart")
@@ -81,10 +93,24 @@ const App = () => {
   const getCart = (queriedUser) => {
     axios.get('https://the-shop-back-end.herokuapp.com/api/cart').then((response) => {
       setCart(response.data.filter(cartItem => cartItem.email === queriedUser))
+       let finalQuantity = 0
+      response.data.map((quantities)=>{
+        if(quantities.email === queriedUser)
+        finalQuantity += quantities.quantity
+        setTotalQuantity(finalQuantity)
+      })
     })
   }
 
-  const updateCart = (editCart,  quantity) =>{
+  const updateCart = (editCart,  quantity) => {
+    let finalQuantity = 0
+    cart.map((quantities)=>{
+      if(editCart.title !== quantities.title){
+        finalQuantity += quantities.quantity
+        return finalQuantity
+      }
+    })
+    setTotalQuantity(finalQuantity + parseInt(editCart.quantity))
     setTotalPrice(totalPrice + ((editCart.quantity-quantity)* editCart.price))
     axios.put('https://the-shop-back-end.herokuapp.com/api/cart/' + editCart.id, editCart)
     .then((response)=>{
@@ -108,11 +134,13 @@ const App = () => {
     .then((response) => {
       setCart(cart.filter(cartItem => cartItem.id !== deletedItem.id))
       setTotalPrice(totalPrice - (deletedItem.price * quantity))
+      setTotalQuantity(totalQuantity - quantity)
     })
   }
 
   const deleteCart = () => {
     setTotalPrice(0)
+    setTotalQuantity(0)
     cart.map((deleteItem) => {
       axios.delete('https://the-shop-back-end.herokuapp.com/api/cart/' + deleteItem.id)
       .then((response) => {
@@ -158,15 +186,32 @@ const App = () => {
     setLoginError(false)
   }
 
+const viewCheckout = () => {
+    setPage('total')
+}
+
+const viewConfirmation = () => {
+    setPage('confirmation')
+    deleteCart()
+}
 
   useEffect(() => {
     getInventory()
+    getCart(currentUser)
   }, [])
 
+  useEffect(() => {
+    localStorage.setItem('currentUser', currentUser)
+  }, [currentUser])
 
   return (
     <>
-      <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} cart={cart} />
+
+      <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} cart={cart} totalQuantity={totalQuantity}/>
+
+      {currentUser && currentUser !== 'null' ?
+        <button className = 'logout button' onClick={logoutUser}>Log Out</button>
+      : null}
 
       {page === 'login' ?
         <Login getUserAccount={getUserAccount} viewCreate={viewCreate} />
@@ -176,7 +221,7 @@ const App = () => {
         <CreateAccount handleCreateNewUser={handleCreateNewUser} viewLogin={viewLogin} />
       : null}
 
-      {loginError ? <h3>Wrong email or password!</h3> : null}
+      {loginError ? <h3 className='error-msg'>Wrong email or password!</h3> : null}
 
       {page === 'home' ?
         inventory ? <Index inventory={inventory} /> : null
@@ -209,7 +254,7 @@ const App = () => {
       : null}
 
       {page === 'cart' ?
-        currentUser ?
+        currentUser && currentUser !== 'null' ?
           <div>
             {cart?.map((cartItem) => {
               return (
@@ -218,16 +263,21 @@ const App = () => {
                 </div>
               )
             })}
-            <button onClick={deleteCart}>Empty the cart</button>
-            <div>
-              <h2>Total:</h2>
-              <h1 className = 'inline'>$</h1>
-              <h1 className = 'inline'>{totalPriceHumanize}</h1>
-              <h1 className = 'inline'>.00</h1>
-            </div>
+            <button className = 'button' onClick={deleteCart}>Empty Cart</button>
+            <button className = 'button' onClick={viewCheckout}>Checkout</button>
           </div>
         : viewLogin()
       : null}
+      {page === 'total' ?
+        currentUser && currentUser !== 'null' ?
+          <Total totalPriceHumanize={totalPriceHumanize} totalPrice={totalPrice} totalQuantity={totalQuantity} viewCart={viewCart} viewConfirmation={viewConfirmation}/>
+        : viewLogin()
+      : null}
+     {page === 'confirmation' ?
+       currentUser && currentUser !== 'null' ?
+         <Confirmation viewShop={viewShop}/>
+       : viewLogin()
+     : null}
     </>
   )
 }
