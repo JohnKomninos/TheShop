@@ -385,6 +385,11 @@ header div:hover{
     margin: 0 1em;
 }
 
+#cart-price {
+  display: flex;
+  justify-content: center;
+}
+
 .button {
     background-color: #42a0ff;
     margin: 5px;
