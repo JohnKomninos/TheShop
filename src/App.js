@@ -202,6 +202,9 @@ const viewCheckout = () => {
 
       <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} cart={cart} totalQuantity={totalQuantity}/>
 
+      {currentUser && currentUser !== 'null' ?
+        <button className = 'logout button' onClick={logoutUser}>Log Out</button>
+      : null}
 
       {page === 'login' ?
         <Login getUserAccount={getUserAccount} viewCreate={viewCreate} />
@@ -263,7 +266,6 @@ const viewCheckout = () => {
           <Total totalPriceHumanize={totalPriceHumanize} totalPrice={totalPrice} totalQuantity={totalQuantity} viewCart={viewCart}/>
         : viewLogin()
       : null}
-     <button className = 'button' onClick={logoutUser}>Log Out</button>
     </>
   )
 }
