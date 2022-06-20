@@ -278,7 +278,6 @@ const viewConfirmation = () => {
          <Confirmation viewShop={viewShop}/>
        : viewLogin()
      : null}
-    <button className = 'button' onClick={logoutUser}>Log Out</button>
     </>
   )
 }
