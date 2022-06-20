@@ -199,6 +199,7 @@ const viewCheckout = () => {
 
   return (
     <>
+
       <Header viewHome={viewHome} viewShop={viewShop} viewCart={viewCart} cart={cart} totalQuantity={totalQuantity} />
 
       <button onClick={logoutUser}>Log Out</button>
