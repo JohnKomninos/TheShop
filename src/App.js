@@ -9,7 +9,9 @@ import Header from './components/Header'
 import Login from './components/Login';
 import CreateAccount from './components/CreateAccount';
 import Total from './components/Total'
+import Confirmation from './components/confirmation'
 const App = () => {
+
 
   const [inventory, setInventory] = useState()
   const [cart, setCart] = useState([])
@@ -188,6 +190,11 @@ const viewCheckout = () => {
     setPage('total')
 }
 
+const viewConfirmation = () => {
+    setPage('confirmation')
+    deleteCart()
+}
+
   useEffect(() => {
     getInventory()
     getCart(currentUser)
@@ -263,9 +270,15 @@ const viewCheckout = () => {
       : null}
       {page === 'total' ?
         currentUser && currentUser !== 'null' ?
-          <Total totalPriceHumanize={totalPriceHumanize} totalPrice={totalPrice} totalQuantity={totalQuantity} viewCart={viewCart}/>
+          <Total totalPriceHumanize={totalPriceHumanize} totalPrice={totalPrice} totalQuantity={totalQuantity} viewCart={viewCart} viewConfirmation={viewConfirmation}/>
         : viewLogin()
       : null}
+     {page === 'confirmation' ?
+       currentUser && currentUser !== 'null' ?
+         <Confirmation viewShop={viewShop}/>
+       : viewLogin()
+     : null}
+    <button className = 'button' onClick={logoutUser}>Log Out</button>
     </>
   )
 }

@@ -60,7 +60,7 @@ const Total = (props) =>{
     </div>
     <div className="total">
       <div className="place-order">
-        <button>Place your order</button>
+        <button onClick={props.viewConfirmation}>Place your order</button>
         <p>By placing your order, you agree to our <span className="blue">privacy notice</span> and <span className="blue">conditions of use</span> which don't exist.</p>
       </div>
       <div className="order-summary">
