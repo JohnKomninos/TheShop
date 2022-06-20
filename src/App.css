@@ -100,6 +100,7 @@ header div:hover{
 
 .carousel-img {
   width: 30em;
+  height: 25em;
   padding: 2em 5em
 }
 
@@ -157,15 +158,6 @@ header div:hover{
     display: block;
 }
 
-.filter:hover {
-    background-color: #42a0ff;
-    color: white;
-}
-
-.filterContainer {
-    display: inline-block;
-}
-
 @media only screen and (max-width: 1300px) {
   .inventory-item {
     width: 20%;
@@ -212,10 +204,12 @@ header div:hover{
 }
 
 .cart-card {
-    background-color: lightgray;
-    border-radius: 20px;
+    background-color: white;
+    color: #42a0ff;
     padding: 20px;
     text-align: left;
+    border-style: solid;
+    border-color: #364C61;
 }
 
 .cart-card h3, .cart-card p {
@@ -239,20 +233,6 @@ header div:hover{
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.submit-btn {
-  background-color: rgb(50, 199, 55);
-  padding: 1em;
-  border-radius: 1em;
-  border: 1px solid black;
-}
-
-.create-back-btn {
-  background-color: #42a0ff;
-  padding: 1em;
-  border-radius: 1em;
-  border: 1px solid black;
 }
 
 .error-msg {
@@ -406,4 +386,37 @@ header div:hover{
 
 .total {
     display: inline-block;
+}
+
+.button {
+    background-color: #42a0ff;
+    margin: 5px;
+    color: white;
+    border: none;
+}
+
+.button:hover {
+    background-color: #364C61;
+}
+
+.filter {
+    background-color: white;
+    border: none;
+    padding: 1em;
+    display: block;
+}
+
+.filter:hover {
+    background-color: #42a0ff;
+    color: white;
+}
+
+.index-button {
+    background-color: white;
+    border: none;
+    color: #42a0ff;
+}
+
+.index-button:hover {
+    color: #364C61;
 }
