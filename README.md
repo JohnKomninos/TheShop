@@ -16,9 +16,6 @@ The application employs full user authorization. Users can create an account wit
 * Git / GitHub
 * Heroku
 
-## Challenges and Lessons Learned
-
-
 ## Contributors
 * Jordan Bank
 * Matt Downey
